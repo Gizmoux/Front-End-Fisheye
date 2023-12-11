@@ -4,15 +4,15 @@ async function getPhotographers() {
 	try {
 		// Utilisez await pour attendre que la promesse fetch soit résolue
 		const response = await fetch('../../data/photographers.json');
-
+		console.log('REPONSE', response);
 		// Vérifiez si la requête a réussi (statut HTTP 200)
 		if (!response.ok) {
-			throw new Error(`Erreur HTTP! Statut : ${response.status}`);
+			throw new Error(`Erreur Statut : ${response.status}`);
 		}
 
 		// Convertissez la réponse en JSON
 		const data = await response.json();
-
+		console.log('DATA', data.photographers);
 		// Obtenez la liste des photographes depuis le fichier JSON
 		const photographers = data.photographers;
 
@@ -56,23 +56,23 @@ async function init() {
 
 init();
 
-let photographers = [
-	{
-		name: 'Ma data test',
-		id: 1,
-		city: 'Paris',
-		country: 'France',
-		tagline: 'Ceci est ma data test',
-		price: 400,
-		portrait: 'account.png',
-	},
-	{
-		name: 'Autre data test',
-		id: 2,
-		city: 'Londres',
-		country: 'UK',
-		tagline: 'Ceci est ma data test 2',
-		price: 500,
-		portrait: 'account.png',
-	},
-];
+// let photographers = [
+// 	{
+// 		name: 'Ma data test',
+// 		id: 1,
+// 		city: 'Paris',
+// 		country: 'France',
+// 		tagline: 'Ceci est ma data test',
+// 		price: 400,
+// 		portrait: 'account.png',
+// 	},
+// 	{
+// 		name: 'Autre data test',
+// 		id: 2,
+// 		city: 'Londres',
+// 		country: 'UK',
+// 		tagline: 'Ceci est ma data test 2',
+// 		price: 500,
+// 		portrait: 'account.png',
+// 	},
+// ];

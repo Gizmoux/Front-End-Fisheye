@@ -8,18 +8,21 @@ function photographerTemplate(data) {
 		const img = document.createElement('img');
 		const h2 = document.createElement('h2');
 		const h3 = document.createElement('h3');
+
 		const paragraphe = document.createElement('p');
 		const span = document.createElement('span');
 
 		img.setAttribute('src', picture);
 		h2.textContent = name;
-		(h3.textContent = city), country;
+		h3.textContent = `${city}, ${country}`;
+
 		paragraphe.textContent = tagline;
 		span.textContent = `${price}${'€/jour'}`;
 
 		article.appendChild(img);
 		article.appendChild(h2);
 		article.appendChild(h3);
+
 		article.appendChild(paragraphe);
 		article.appendChild(span);
 		return article;
