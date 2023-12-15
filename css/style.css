@@ -39,7 +39,8 @@ h1 {
 }
 
 .photographer_section article h2 {
-	color: #d3573c;
+	/* color: #d3573c; */
+	color: blue;
 	font-size: 36px;
 }
 

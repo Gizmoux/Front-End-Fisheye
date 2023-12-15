@@ -1,10 +1,11 @@
-async function getPhotographers() {
+import { photographerTemplate } from '../templates/photographer.js';
+export async function getPhotographers() {
 	// Ceci est un exemple de données pour avoir un affichage de photographes de test dès le démarrage du projet,
 	// mais il sera à remplacer avec une requête sur le fichier JSON en utilisant "fetch".
 	try {
 		// Utilisez await pour attendre que la promesse fetch soit résolue
 		const response = await fetch('../../data/photographers.json');
-		console.log('REPONSE', response);
+		console.log('REPONSE PAGE INDEX.JS', response);
 		// Vérifiez si la requête a réussi (statut HTTP 200)
 		if (!response.ok) {
 			throw new Error(`Erreur Statut : ${response.status}`);
@@ -12,7 +13,7 @@ async function getPhotographers() {
 
 		// Convertissez la réponse en JSON
 		const data = await response.json();
-		console.log('DATA', data.photographers);
+		console.log('DATA PAGE INDEX.JS', data.photographers);
 		// Obtenez la liste des photographes depuis le fichier JSON
 		const photographers = data.photographers;
 
@@ -38,7 +39,7 @@ async function getPhotographers() {
 	// };
 }
 
-async function displayData(photographers) {
+export async function displayData(photographers) {
 	const photographersSection = document.querySelector('.photographer_section');
 
 	photographers.forEach(photographer => {

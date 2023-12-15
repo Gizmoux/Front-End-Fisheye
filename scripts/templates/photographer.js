@@ -1,4 +1,4 @@
-function photographerTemplate(data) {
+export function photographerTemplate(data) {
 	const { name, portrait, city, tagline, price, country, id } = data;
 
 	const picture = `assets/photographers/${portrait}`;
@@ -24,11 +24,10 @@ function photographerTemplate(data) {
 		article.appendChild(paragraphe);
 		article.appendChild(span);
 		// FONCTION CLICK SUR LES PHOTOS ET ENVOIE SUR LA PAGE DU PHOTOGRAPHE CHOISI
-		const linkElement = article.addEventListener('click', () => {
+		const linkElement = img.addEventListener('click', () => {
 			window.location.href = `photographer.html?id=${id}`;
 			console.log('LINKELEMENT', linkElement);
 		});
-
 		return article;
 	}
 	return { name, picture, getUserCardDOM };
