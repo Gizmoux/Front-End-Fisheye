@@ -14,6 +14,7 @@
 }
 .photograph-header img {
 	width: 150px;
+
 	border-radius: 50%;
 }
 
@@ -29,6 +30,20 @@
 	/* color: #d3573c; */
 	color: blue;
 	font-size: 36px;
+}
+.media-container {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	margin: 5% 10%;
+}
+.media-container img {
+	width: 300px;
+	height: 300px;
+	object-fit: cover;
+}
+.media-container video {
+	width: 300px;
+	height: 300px;
 }
 .contact_button {
 	font-size: 20px;
