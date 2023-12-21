@@ -7,10 +7,14 @@ const photographerIdURL = parseInt(urlParams.get('id'));
 // console.log('photographerIdURL', photographerIdURL);
 // console.log('urlParams', urlParams);
 
+const { photographers, mediaPhotographers } = await getPhotographers();
+const mediaPhotographerFiltered = mediaPhotographers.filter(
+	media => media.photographerId === photographerIdURL
+);
+
 const fetchDataPhotographer = async () => {
 	try {
 		// Utilisez getPhotographers pour récupérer les données
-		const { photographers } = await getPhotographers();
 		// Trouver le photographe avec l'ID correspondant dans les données récupérées
 		const selectedPhotographer = photographers.find(
 			photographer => photographer.id === photographerIdURL
@@ -38,41 +42,41 @@ fetchDataPhotographer();
 
 // Factory pour Media
 
-const mediaContainer = document.querySelector('.media-container');
-async function createMedia() {
-	const { mediaPhotographers } = await getPhotographers();
-	const selectedMediaPhotographer = mediaPhotographers
-		.filter(media => media.photographerId === photographerIdURL)
-		.forEach(media => {
-			const divCard = document.createElement('div');
-			divCard.classList.add('divCard');
-			const p = document.createElement('p');
-			p.textContent = media.title;
+// const {} = await getPhotographers();
+async function createMedia(mediaArray) {
+	const mediaContainer = document.querySelector('.media-container');
+	mediaContainer.innerHTML = '';
+	mediaArray.forEach(media => {
+		const divCard = document.createElement('div');
+		divCard.classList.add('divCard');
+		const p = document.createElement('p');
+		p.textContent = media.title;
 
-			const likesElement = document.createElement('p');
-			likesElement.textContent = `Likes: ${media.likes}`;
-			if (media.image) {
-				const imageElement = document.createElement('img');
-				imageElement.src = `assets/images/${photographerIdURL}/${media.image}`;
-				imageElement.alt = media.title;
-				divCard.appendChild(imageElement);
-			} else if (media.video) {
-				const videoElement = document.createElement('video');
-				videoElement.src = `assets/images/${photographerIdURL}/${media.video}`;
-				videoElement.controls = true;
-				divCard.appendChild(videoElement);
-			}
-			mediaContainer.appendChild(divCard);
-			divCard.appendChild(p);
-			divCard.appendChild(likesElement);
-		});
+		const likesElement = document.createElement('p');
+		likesElement.textContent = `Likes: ${media.likes}`;
+		if (media.image) {
+			const imageElement = document.createElement('img');
+			imageElement.src = `assets/images/${photographerIdURL}/${media.image}`;
+			imageElement.alt = media.title;
+			divCard.appendChild(imageElement);
+		} else if (media.video) {
+			const videoElement = document.createElement('video');
+			videoElement.src = `assets/images/${photographerIdURL}/${media.video}`;
+			videoElement.controls = true;
+			divCard.appendChild(videoElement);
+		}
+		mediaContainer.appendChild(divCard);
+		divCard.appendChild(p);
+		divCard.appendChild(likesElement);
+	});
 
 	// const filterOptions = document.getElementById('filter-button');
 
-	console.log('selectedMediaPhotographerTITLE', selectedMediaPhotographer);
+	// console.log('selectedMediaPhotographerTITLE', selectedMediaPhotographer);
 	console.log('mediaPhotographers', mediaPhotographers);
 }
-createMedia();
+createMedia(mediaPhotographerFiltered);
+// console.log('mediaPhotographersLIKES', mediaPhotographers[0].likes);
 
 // Bouton Filter
 const buttonFilter = () => {
@@ -80,15 +84,43 @@ const buttonFilter = () => {
 	const select = document.createElement('select');
 	const filterOptions = ['Popularité', 'Date', 'Titre'];
 
-	console.log(select);
-
 	filterContainer.appendChild(select);
-
 	filterOptions.forEach(optionText => {
 		const option = document.createElement('option');
 		option.value = optionText;
 		option.text = optionText;
 		select.appendChild(option);
+		// console.dir('OPTION', option);
+		// console.log('option.text', option.text);
+	});
+	select.addEventListener('change', () => {
+		console.log('Option de filtre seléctionnée:', select.value);
+		if (select.value === 'Popularité') {
+			const mediaTabSort = mediaPhotographerFiltered
+				.slice()
+				.sort((a, b) => b.likes - a.likes);
+
+			document.querySelector('.media-container').innerHTML = '';
+			createMedia(mediaTabSort);
+			// console.log('mediaTAB', likesTab);
+			// console.log('mediaTabSort', mediaTabSort);
+		} else if (select.value === 'Date') {
+			const mediaTabSort = mediaPhotographerFiltered
+				.slice()
+				.sort((a, b) => new Date(a.date) - new Date(b.date));
+
+			document.querySelector('.media-container').innerHTML = '';
+			createMedia(mediaTabSort);
+		} else if (select.value === 'Titre') {
+			const mediaTabSort = mediaPhotographerFiltered
+				.slice()
+				.sort((a, b) => a.title.localeCompare(b.title));
+			console.log('mediaTabSort', mediaTabSort);
+			document.querySelector('.media-container').innerHTML = '';
+			createMedia(mediaTabSort);
+		}
+		// console.log('mediaPhotographers.date', mediaPhotographers.date);
+		// console.log('mediaPhotographers.title', mediaPhotographers.title);
 	});
 };
 buttonFilter();
