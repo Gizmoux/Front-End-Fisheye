@@ -1,6 +1,7 @@
 // // Mettre le code JavaScript lié à la page photographer.html
 import { getPhotographers } from './index.js';
 import { photographerTemplate } from '../templates/photographer.js';
+
 const urlParams = new URLSearchParams(window.location.search);
 const photographerIdURL = parseInt(urlParams.get('id'));
 
@@ -45,7 +46,7 @@ fetchDataPhotographer();
 // const {} = await getPhotographers();
 async function createMedia(mediaArray) {
 	const mediaContainer = document.querySelector('.media-container');
-	mediaContainer.innerHTML = '';
+	// mediaContainer.innerHTML = '';
 	mediaArray.forEach(media => {
 		const divCard = document.createElement('div');
 		divCard.classList.add('divCard');
@@ -124,3 +125,16 @@ const buttonFilter = () => {
 	});
 };
 buttonFilter();
+// const lightboxElement = document.querySelectorAll('.divCard');
+// const modalMedia = document.querySelector('.modal-media');
+// const displayModalMedia = () => {
+// 	modalMedia.style.display = 'block';
+// };
+// const lightbox = () => {
+// 	lightboxElement.forEach(element => {
+// 		element.addEventListener('click', () => {
+// 			displayModalMedia();
+// 		});
+// 	});
+// };
+// lightbox();

@@ -34,16 +34,36 @@
 			</select> -->
 			<div class="media-container"></div>
 		</main>
+		<div id="lightbox">
+			<div class="modal-media"></div>
+		</div>
 		<div id="contact_modal">
 			<div class="modal">
 				<header>
 					<h2>Contactez-moi</h2>
 					<img src="assets/icons/close.svg" onclick="closeModal()" />
 				</header>
-				<form>
+
+				<form id="contact-form">
+					<div class="firstname-container">
+						<label for="firstname">Prénom</label>
+						<input id="firstname" type="text" />
+						<span id="firstnameError"></span>
+					</div>
 					<div>
-						<label>Prénom</label>
-						<input />
+						<label for="lastname">Nom</label>
+						<input id="lastname" type="text" />
+						<span id="lastnameError"></span>
+					</div>
+					<div>
+						<label for="email">Email</label>
+						<input id="email" type="text" />
+						<span id="emailError"></span>
+					</div>
+					<div class="message-container">
+						<label for="message">Votre message</label>
+						<textarea id="message"></textarea>
+						<span id="messageError"></span>
 					</div>
 					<button class="contact_button">Envoyer</button>
 				</form>
@@ -53,5 +73,6 @@
 		<script type="module" src="scripts/templates/photographer.js"></script>
 
 		<script src="/scripts/utils/contactForm.js"></script>
+		<script src="/scripts/utils/lightBox.js"></script>
 	</body>
 </html>
