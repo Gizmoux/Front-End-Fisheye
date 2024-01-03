@@ -64,11 +64,15 @@ form.addEventListener('submit', event => {
 	// On empêche le comportement par défaut
 	event.preventDefault();
 
-	// On appelle lmes fonciotns
+	// On appelle les fonctions
 	validateFieldName(firstname, firstnameError, errorMessages.firstname);
 	validateFieldName(lastname, lastnameError, errorMessages.lastname);
 	validateFieldEmail(email, emailError, errorMessages.email);
 	validateFieldMessage(message, messageError, errorMessages.message);
+	console.log('Prénom:', firstname.value);
+	console.log('Nom:', lastname.value);
+	console.log('Email:', email.value);
+	console.log('Message:', message.value);
 	if (
 		!firstnameError.textContent &&
 		!lastnameError.textContent &&
@@ -77,7 +81,7 @@ form.addEventListener('submit', event => {
 	) {
 		//Launch modalValidation "Votre réservation a été reçue."
 		closeModal();
+
 		window.location.reload();
-		console.log('Votre message a bien été envoyé!');
 	}
 });

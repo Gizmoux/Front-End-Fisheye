@@ -110,8 +110,13 @@ form input {
 	border: none;
 	border-radius: 5px;
 }
-/* .modal-media {
-	background-color: lightcoral;
+.modal-media {
+	/* background-color: lightcoral; */
+	/* display: none; */
 	width: 500px;
 	height: 500px;
-} */
+}
+.modal-media img {
+	width: 500px;
+	height: 500px;
+}

@@ -74,7 +74,7 @@ async function createMedia(mediaArray) {
 	// const filterOptions = document.getElementById('filter-button');
 
 	// console.log('selectedMediaPhotographerTITLE', selectedMediaPhotographer);
-	console.log('mediaPhotographers', mediaPhotographers);
+	// console.log('mediaPhotographers', mediaPhotographers[0].image);
 }
 createMedia(mediaPhotographerFiltered);
 // console.log('mediaPhotographersLIKES', mediaPhotographers[0].likes);
@@ -125,16 +125,32 @@ const buttonFilter = () => {
 	});
 };
 buttonFilter();
-// const lightboxElement = document.querySelectorAll('.divCard');
-// const modalMedia = document.querySelector('.modal-media');
-// const displayModalMedia = () => {
-// 	modalMedia.style.display = 'block';
-// };
-// const lightbox = () => {
-// 	lightboxElement.forEach(element => {
-// 		element.addEventListener('click', () => {
-// 			displayModalMedia();
-// 		});
-// 	});
-// };
-// lightbox();
+
+// LIghtbox
+const lightboxElements = document.querySelectorAll('.divCard');
+const modalMedia = document.querySelector('.modal-media');
+const displayModalMedia = () => {
+	modalMedia.style.display = 'block';
+};
+
+const lightbox = () => {
+	lightboxElements.forEach((element, index) => {
+		element.addEventListener('click', () => {
+			const selectedMedia = mediaPhotographerFiltered[index];
+			const mediaElement = selectedMedia.image
+				? document.createElement('img')
+				: document.createElement('video');
+
+			mediaElement.src = selectedMedia.image
+				? `assets/images/${photographerIdURL}/${selectedMedia.image}`
+				: `assets/images/${photographerIdURL}/${selectedMedia.video}`;
+			console.log('selectedMedia', selectedMedia.image);
+			modalMedia.innerHTML = '';
+			modalMedia.appendChild(mediaElement);
+
+			displayModalMedia();
+		});
+	});
+};
+
+lightbox();
