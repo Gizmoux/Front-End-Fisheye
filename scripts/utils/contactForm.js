@@ -69,10 +69,7 @@ form.addEventListener('submit', event => {
 	validateFieldName(lastname, lastnameError, errorMessages.lastname);
 	validateFieldEmail(email, emailError, errorMessages.email);
 	validateFieldMessage(message, messageError, errorMessages.message);
-	console.log('Prénom:', firstname.value);
-	console.log('Nom:', lastname.value);
-	console.log('Email:', email.value);
-	console.log('Message:', message.value);
+
 	if (
 		!firstnameError.textContent &&
 		!lastnameError.textContent &&
@@ -83,5 +80,9 @@ form.addEventListener('submit', event => {
 		closeModal();
 
 		window.location.reload();
+		console.log('Prénom:', firstname.value);
+		console.log('Nom:', lastname.value);
+		console.log('Email:', email.value);
+		console.log('Message:', message.value);
 	}
 });

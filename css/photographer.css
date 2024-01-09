@@ -120,3 +120,11 @@ form input {
 	width: 500px;
 	height: 500px;
 }
+.prevButton,
+.nextButton {
+	font-size: 50px;
+	color: #901c1c;
+	border: none;
+	outline: none; /* Supprimer la bordure de focus */
+	background: none;
+}

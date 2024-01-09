@@ -132,7 +132,6 @@ const modalMedia = document.querySelector('.modal-media');
 const displayModalMedia = () => {
 	modalMedia.style.display = 'block';
 };
-
 const lightbox = () => {
 	lightboxElements.forEach((element, index) => {
 		element.addEventListener('click', () => {
@@ -144,13 +143,62 @@ const lightbox = () => {
 			mediaElement.src = selectedMedia.image
 				? `assets/images/${photographerIdURL}/${selectedMedia.image}`
 				: `assets/images/${photographerIdURL}/${selectedMedia.video}`;
-			console.log('selectedMedia', selectedMedia.image);
+
 			modalMedia.innerHTML = '';
 			modalMedia.appendChild(mediaElement);
+
+			// Ajouter les boutons de navigation
+			const prevButton = document.createElement('button');
+			prevButton.innerHTML = '<';
+			prevButton.classList.add('prevButton');
+
+			prevButton.addEventListener('click', () => showPreviousImage(index));
+			modalMedia.appendChild(prevButton);
+
+			const nextButton = document.createElement('button');
+			nextButton.innerHTML = '>';
+			nextButton.classList.add('nextButton');
+
+			nextButton.addEventListener('click', () => showNextImage(index));
+			modalMedia.appendChild(nextButton);
 
 			displayModalMedia();
 		});
 	});
+
+	// Fonction pour afficher l'image précédente
+	const showPreviousImage = currentIndex => {
+		const newIndex = currentIndex - 1;
+		lightboxElements[newIndex].click();
+	};
+
+	// Fonction pour afficher l'image suivante
+	const showNextImage = currentIndex => {
+		const newIndex = currentIndex + 1;
+		lightboxElements[newIndex].click();
+	};
 };
 
 lightbox();
+
+// const lightbox = () => {
+// 	lightboxElements.forEach((element, index) => {
+// 		element.addEventListener('click', () => {
+// 			const selectedMedia = mediaPhotographerFiltered[index];
+// 			const mediaElement = selectedMedia.image
+// 				? document.createElement('img')
+// 				: document.createElement('video');
+
+// 			mediaElement.src = selectedMedia.image
+// 				? `assets/images/${photographerIdURL}/${selectedMedia.image}`
+// 				: `assets/images/${photographerIdURL}/${selectedMedia.video}`;
+// 			console.log('selectedMedia', selectedMedia.image);
+// 			modalMedia.innerHTML = '';
+// 			modalMedia.appendChild(mediaElement);
+
+// 			displayModalMedia();
+// 		});
+// 	});
+// };
+
+// lightbox();
