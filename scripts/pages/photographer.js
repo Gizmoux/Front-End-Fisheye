@@ -147,7 +147,7 @@ const lightbox = () => {
 			modalMedia.innerHTML = '';
 			modalMedia.appendChild(mediaElement);
 
-			// Ajouter les boutons de navigation
+			// Bouton siuvant / précédent
 			const prevButton = document.createElement('button');
 			prevButton.innerHTML = '<';
 			prevButton.classList.add('prevButton');
@@ -166,13 +166,13 @@ const lightbox = () => {
 		});
 	});
 
-	// Fonction pour afficher l'image précédente
+	// Image précédente
 	const showPreviousImage = currentIndex => {
 		const newIndex = currentIndex - 1;
 		lightboxElements[newIndex].click();
 	};
 
-	// Fonction pour afficher l'image suivante
+	// Image suivantr
 	const showNextImage = currentIndex => {
 		const newIndex = currentIndex + 1;
 		lightboxElements[newIndex].click();
@@ -180,25 +180,3 @@ const lightbox = () => {
 };
 
 lightbox();
-
-// const lightbox = () => {
-// 	lightboxElements.forEach((element, index) => {
-// 		element.addEventListener('click', () => {
-// 			const selectedMedia = mediaPhotographerFiltered[index];
-// 			const mediaElement = selectedMedia.image
-// 				? document.createElement('img')
-// 				: document.createElement('video');
-
-// 			mediaElement.src = selectedMedia.image
-// 				? `assets/images/${photographerIdURL}/${selectedMedia.image}`
-// 				: `assets/images/${photographerIdURL}/${selectedMedia.video}`;
-// 			console.log('selectedMedia', selectedMedia.image);
-// 			modalMedia.innerHTML = '';
-// 			modalMedia.appendChild(mediaElement);
-
-// 			displayModalMedia();
-// 		});
-// 	});
-// };
-
-// lightbox();

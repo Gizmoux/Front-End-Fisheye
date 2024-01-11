@@ -78,11 +78,10 @@ form.addEventListener('submit', event => {
 	) {
 		//Launch modalValidation "Votre réservation a été reçue."
 		closeModal();
-
-		window.location.reload();
 		console.log('Prénom:', firstname.value);
 		console.log('Nom:', lastname.value);
 		console.log('Email:', email.value);
 		console.log('Message:', message.value);
+		window.location.reload();
 	}
 });
