@@ -1,7 +1,20 @@
 #contact_modal {
 	display: none;
 }
-
+.close-modal {
+	color: #901c1c;
+	font-weight: bolder;
+	border: none;
+	font-size: 25px;
+	background: none;
+	position: relative;
+	right: -1%;
+	top: -33%;
+}
+.fa-solid,
+.fa-heart {
+	color: #901c1c;
+}
 .photograph-header {
 	background-color: #fafafa;
 	height: 300px;
@@ -112,19 +125,45 @@ form input {
 }
 .modal-media {
 	/* background-color: lightcoral; */
-	/* display: none; */
-	width: 500px;
-	height: 500px;
+	display: none;
+	z-index: 1;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	margin: auto;
+	object-fit: contain;
+	width: 700px;
+	height: 700px;
+}
+.divTotalLikes {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: fixed;
+	top: 10px;
+	right: 10px;
+	background-color: #db8876;
+	padding: 10px;
+	border-radius: 5px;
+	color: white;
 }
 .modal-media img {
-	width: 500px;
-	height: 500px;
+	/* background-color: #901c1c; */
+	margin: 0% 0% -30% 5%;
+	width: 400px;
+	height: 400px;
+}
+.modal-media video {
+	/* background-color: #901c1c; */
+	margin: 0% 0% -30% 5%;
+	width: 400px;
+	height: 400px;
 }
 .prevButton,
 .nextButton {
 	font-size: 50px;
 	color: #901c1c;
 	border: none;
-	outline: none; /* Supprimer la bordure de focus */
 	background: none;
 }

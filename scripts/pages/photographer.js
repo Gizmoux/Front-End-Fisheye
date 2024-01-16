@@ -30,7 +30,8 @@ const fetchDataPhotographer = async () => {
 			mainElement.appendChild(divMainElement);
 			mainElement.appendChild(divMediaElement);
 
-			console.log('Détails du photographe sélectionné :', selectedPhotographer);
+			// console.log('Détails du photographe sélectionné :', selectedPhotographer);
+			// console.log('mediaPhotographerFiltered', mediaPhotographerFiltered);
 		} else {
 			console.error("Photographe non trouvé avec l'ID spécifié.");
 		}
@@ -50,25 +51,63 @@ async function createMedia(mediaArray) {
 	mediaArray.forEach(media => {
 		const divCard = document.createElement('div');
 		divCard.classList.add('divCard');
+		let currentLikes = media.likes;
+
+		// divCard.appendChild(divCardPresentation);
+		const cardInfo = document.createElement('div');
+		cardInfo.classList.add('cardInfo');
 		const p = document.createElement('p');
 		p.textContent = media.title;
 
-		const likesElement = document.createElement('p');
-		likesElement.textContent = `Likes: ${media.likes}`;
+		const heartIcon = document.createElement('i');
+		heartIcon.classList.add('fa-solid', 'fa-heart');
+		const likesElement = document.createElement('span');
+		likesElement.textContent = ` ${currentLikes}`;
+		// Fonction pour ajouter un Like aux éléments
+		const addLike = () => {
+			likesElement.textContent = ` ${currentLikes + 1}`;
+		};
+
+		cardInfo.addEventListener('click', addLike);
+
+		// Fonction Total de likes
+
+		function totalLikes() {
+			let totalMediaLikes = 0;
+			mediaPhotographerFiltered.forEach(mediaLikes => {
+				totalMediaLikes = totalMediaLikes + mediaLikes.likes;
+			});
+			const divTotalLikes = document.createElement('div');
+			divTotalLikes.classList.add('divTotalLikes');
+			divTotalLikes.textContent = `Total Likes: ${totalMediaLikes}`;
+			document.body.appendChild(divTotalLikes);
+			// console.log('totalMediaLikes', totalMediaLikes);
+		}
+		totalLikes();
+		// cardInfo.appendChild(heartIcon);
+		cardInfo.innerHTML = ` ${heartIcon.outerHTML}`;
+		document.body.appendChild(cardInfo);
+		cardInfo.appendChild(likesElement);
+		// Selon le type de media, j'affiche une image ou une video. Je leur
+		// donne une classe elementToLightbox pour pouvoir par la suite ouvrir ces médias au click en récupérant leur classe
 		if (media.image) {
 			const imageElement = document.createElement('img');
+			imageElement.classList.add('elementToLightbox');
+
 			imageElement.src = `assets/images/${photographerIdURL}/${media.image}`;
 			imageElement.alt = media.title;
 			divCard.appendChild(imageElement);
 		} else if (media.video) {
 			const videoElement = document.createElement('video');
+			videoElement.classList.add('elementToLightbox');
+
 			videoElement.src = `assets/images/${photographerIdURL}/${media.video}`;
 			videoElement.controls = true;
 			divCard.appendChild(videoElement);
 		}
 		mediaContainer.appendChild(divCard);
-		divCard.appendChild(p);
-		divCard.appendChild(likesElement);
+		divCard.appendChild(cardInfo);
+		cardInfo.appendChild(p);
 	});
 
 	// const filterOptions = document.getElementById('filter-button');
@@ -77,6 +116,7 @@ async function createMedia(mediaArray) {
 	// console.log('mediaPhotographers', mediaPhotographers[0].image);
 }
 createMedia(mediaPhotographerFiltered);
+
 // console.log('mediaPhotographersLIKES', mediaPhotographers[0].likes);
 
 // Bouton Filter
@@ -126,8 +166,8 @@ const buttonFilter = () => {
 };
 buttonFilter();
 
-// LIghtbox
-const lightboxElements = document.querySelectorAll('.divCard');
+// Fonction pour la Lightbox
+const lightboxElements = document.querySelectorAll('.elementToLightbox');
 const modalMedia = document.querySelector('.modal-media');
 const displayModalMedia = () => {
 	modalMedia.style.display = 'block';
@@ -136,6 +176,7 @@ const lightbox = () => {
 	lightboxElements.forEach((element, index) => {
 		element.addEventListener('click', () => {
 			const selectedMedia = mediaPhotographerFiltered[index];
+			// console.log('selectedMedia', selectedMedia);
 			const mediaElement = selectedMedia.image
 				? document.createElement('img')
 				: document.createElement('video');
@@ -145,15 +186,22 @@ const lightbox = () => {
 				: `assets/images/${photographerIdURL}/${selectedMedia.video}`;
 
 			modalMedia.innerHTML = '';
-			modalMedia.appendChild(mediaElement);
 
-			// Bouton siuvant / précédent
+			// Bouton précédent
 			const prevButton = document.createElement('button');
 			prevButton.innerHTML = '<';
 			prevButton.classList.add('prevButton');
 
 			prevButton.addEventListener('click', () => showPreviousImage(index));
 			modalMedia.appendChild(prevButton);
+			modalMedia.appendChild(mediaElement);
+
+			// Bouton suivant
+			const closeButton = document.createElement('button');
+			closeButton.innerHTML = 'X';
+			closeButton.classList.add('close-modal');
+			modalMedia.appendChild(closeButton);
+			closeButton.addEventListener('click', closeButtonModal);
 
 			const nextButton = document.createElement('button');
 			nextButton.innerHTML = '>';
@@ -165,7 +213,10 @@ const lightbox = () => {
 			displayModalMedia();
 		});
 	});
-
+	function closeButtonModal() {
+		const modal = document.querySelector('.modal-media');
+		modal.style.display = 'none';
+	}
 	// Image précédente
 	const showPreviousImage = currentIndex => {
 		const newIndex = currentIndex - 1;
