@@ -1,33 +1,99 @@
 #contact_modal {
 	display: none;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	width: 100%;
+	transform: translate(-50%, -50%);
 }
 .close-modal {
 	color: #901c1c;
-	font-weight: bolder;
+	font-weight: lighter;
 	border: none;
 	font-size: 25px;
 	background: none;
 	position: relative;
 	right: -1%;
-	top: -33%;
+	top: -24%;
+}
+
+/* .cardInfo {
+	display: flex;
+	justify-content: start;
+	flex-direction: row-reverse;
+	align-items: center;
+}
+.cardInfo span {
+	margin: 0% 50% 0% 0%;
+	color: #901c1c;
+}
+.cardInfo p {
+	color: #901c1c;
+} */
+.divCard {
+	/* background-color: lightblue; */
+	width: 300px;
+}
+.cardInfo {
+	display: flex;
+
+	justify-content: space-between;
+	align-items: center;
+}
+
+.cardInfo p {
+	order: 1;
+	margin-right: auto;
+	color: #901c1c;
+}
+
+.cardInfo span {
+	order: 2;
+	margin-right: 5px;
+	color: #901c1c;
+}
+
+.cardInfo i {
+	order: 3; /* Icône à droite */
 }
 .fa-solid,
 .fa-heart {
 	color: #901c1c;
 }
+#filter-container {
+	display: flex;
+	justify-content: flex-start;
+	margin: 2% 0% 0% 2%;
+}
+#filter-container label {
+	margin: 1% 2% 0% 5%;
+}
+#filter-container select {
+	background-color: #901c1c;
+	padding: 12px;
+	color: white;
+	border-radius: 5px;
+}
+/* #filter-container select.options-style {
+	color: #901c1c !important;
+	background-color: blue !important;
+} */
 .photograph-header {
 	background-color: #fafafa;
+	display: flex;
+	justify-content: space-between;
+	text-align: center;
 	height: 300px;
-	margin: 0 100px;
-
-	display: grid;
+	margin: 0 auto;
+	position: relative;
+	width: 1240px;
+	/* display: grid;
 	grid-template-columns: 1fr 1fr 1fr;
 	gap: 70px;
-	margin-top: 100px;
+	margin-top: 100px; */
 }
 .photograph-header img {
 	width: 150px;
-
 	border-radius: 50%;
 }
 
@@ -38,6 +104,37 @@
 	align-items: center;
 	flex-direction: column;
 }
+.photographer_header-presentation article {
+	display: flex;
+	flex-direction: row-reverse;
+	justify-content: space-between;
+	position: relative;
+	margin: 0% 0% 0% 2%;
+}
+.photographer_header-presentation article img {
+	position: relative;
+	height: 200px;
+	width: 200px;
+	margin: auto -165%;
+}
+.photographer_header-presentation h2 {
+	margin: 0px;
+}
+.photographer_header-presentation p {
+	margin: 0px;
+}
+.photographer_header-presentation button {
+	position: absolute;
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	margin: 13% 0% 0% 35%;
+}
+.photographer_header-presentation .divPresentation {
+	display: flex;
+	flex-direction: column;
+	align-items: start;
+}
 
 .photograph-header article h2 {
 	color: #d3573c;
@@ -45,8 +142,10 @@
 }
 .media-container {
 	display: grid;
+	max-width: 1240px;
 	grid-template-columns: repeat(3, 1fr);
-	margin: 5% 10%;
+	margin: 5% auto;
+	column-gap: 150px;
 }
 .media-container img {
 	width: 300px;
@@ -68,8 +167,14 @@
 	background-color: #901c1c;
 	border-radius: 5px;
 	cursor: pointer;
+	align-self: center;
+	position: absolute;
+	left: 8%;
+	top: -15%;
 }
-
+.elementToLightbox {
+	border-radius: 7px;
+}
 .modal {
 	border-radius: 5px;
 	background-color: #db8876;
@@ -114,7 +219,7 @@ form div {
 	flex-direction: column;
 	width: 100%;
 	align-items: self-start;
-	margin-bottom: 26px;
+	margin-bottom: 5px;
 }
 
 form input {
@@ -128,8 +233,8 @@ form input {
 	display: none;
 	z-index: 1;
 	position: fixed;
-	top: 50%;
-	left: 50%;
+	top: 60%;
+	left: 60%;
 	transform: translate(-50%, -50%);
 	margin: auto;
 	object-fit: contain;
@@ -139,18 +244,25 @@ form input {
 .divTotalLikes {
 	display: flex;
 	justify-content: center;
-	align-items: center;
+	align-items: baseline;
 	position: fixed;
-	top: 10px;
-	right: 10px;
+	bottom: 0px;
+	right: 20px;
 	background-color: #db8876;
 	padding: 10px;
 	border-radius: 5px;
-	color: white;
+	color: black;
+	i {
+		color: black;
+		margin-right: 90px;
+		margin-left: 4px;
+	}
 }
 .modal-media img {
 	/* background-color: #901c1c; */
 	margin: 0% 0% -30% 5%;
+	border-radius: 5px;
+	object-fit: cover;
 	width: 400px;
 	height: 400px;
 }
@@ -162,8 +274,9 @@ form input {
 }
 .prevButton,
 .nextButton {
-	font-size: 50px;
+	font-size: 30px;
 	color: #901c1c;
 	border: none;
 	background: none;
+	margin: 0px -30px 0px -25px;
 }

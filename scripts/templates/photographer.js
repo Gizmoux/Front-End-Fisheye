@@ -6,6 +6,8 @@ export function photographerTemplate(data) {
 	function getUserCardDOM() {
 		// CREER LES ELEMENTS DU DOM
 		const article = document.createElement('article');
+		const divPres = document.createElement('div');
+		divPres.classList.add('divPresentation');
 		const img = document.createElement('img');
 		const h2 = document.createElement('h2');
 		const h3 = document.createElement('h3');
@@ -16,13 +18,14 @@ export function photographerTemplate(data) {
 		h2.textContent = name;
 		h3.textContent = `${city}, ${country}`;
 		paragraphe.textContent = tagline;
-		span.textContent = `${price}${'€/jour'}`;
-
+		// span.textContent = `${price}${'€/jour'}`;
 		article.appendChild(img);
-		article.appendChild(h2);
-		article.appendChild(h3);
-		article.appendChild(paragraphe);
-		article.appendChild(span);
+		article.appendChild(divPres);
+		divPres.appendChild(h2);
+		divPres.appendChild(h3);
+		divPres.appendChild(paragraphe);
+
+		// article.appendChild(span);
 		// FONCTION CLICK SUR LES PHOTOS ET ENVOIE SUR LA PAGE DU PHOTOGRAPHE CHOISI
 		const linkElement = img.addEventListener('click', () => {
 			window.location.href = `photographer.html?id=${id}`;
@@ -30,5 +33,6 @@ export function photographerTemplate(data) {
 		});
 		return article;
 	}
+
 	return { name, picture, getUserCardDOM };
 }

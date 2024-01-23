@@ -82,6 +82,5 @@ form.addEventListener('submit', event => {
 		console.log('Nom:', lastname.value);
 		console.log('Email:', email.value);
 		console.log('Message:', message.value);
-		window.location.reload();
 	}
 });

@@ -12,26 +12,34 @@ const { photographers, mediaPhotographers } = await getPhotographers();
 const mediaPhotographerFiltered = mediaPhotographers.filter(
 	media => media.photographerId === photographerIdURL
 );
-
+const selectedPhotographer = photographers.find(
+	photographer => photographer.id === photographerIdURL
+);
+console.log('photographers', photographers);
 const fetchDataPhotographer = async () => {
 	try {
 		// Utilisez getPhotographers pour récupérer les données
+		// J'ai déplacé ça au dessus si ça bug...
+		// const selectedPhotographer = photographers.find(
+		// 	photographer => photographer.id === photographerIdURL
+		// );
 		// Trouver le photographe avec l'ID correspondant dans les données récupérées
-		const selectedPhotographer = photographers.find(
-			photographer => photographer.id === photographerIdURL
-		);
+
 		if (selectedPhotographer) {
 			const mainElement = document.querySelector('.photograph-header');
-			const divMediaElement = document.createElement('div');
-			const divMainElement = document.createElement('div');
+			// const divImageElement = document.createElement('div');
+			// const divMainElement = document.createElement('div');
 			// Appeler la fonction qui affiche les détails du photographe
 			const { getUserCardDOM } = photographerTemplate(selectedPhotographer);
 			mainElement.appendChild(getUserCardDOM());
-			mainElement.appendChild(divMainElement);
-			mainElement.appendChild(divMediaElement);
+			// Inutile ?
+			// mainElement.appendChild(divMainElement);
+			mainElement.classList.add('photographer_header-presentation');
+			// mainElement.appendChild(divImageElement);
+			mainElement.classList.add('photographer_header-image');
 
-			// console.log('Détails du photographe sélectionné :', selectedPhotographer);
-			// console.log('mediaPhotographerFiltered', mediaPhotographerFiltered);
+			console.log('selectedPhotographer :', selectedPhotographer);
+			console.log('mediaPhotographerFiltered', mediaPhotographerFiltered);
 		} else {
 			console.error("Photographe non trouvé avec l'ID spécifié.");
 		}
@@ -41,6 +49,10 @@ const fetchDataPhotographer = async () => {
 };
 // Appeler la fonction pour récupérer et afficher les données du photographe
 fetchDataPhotographer();
+//Afficher nom dans le form
+const formcontactname = document.getElementById('form_contact-name');
+const nameForm = selectedPhotographer.name;
+formcontactname.textContent = `Contactez-moi ${nameForm}`;
 
 // Factory pour Media
 
@@ -56,6 +68,10 @@ async function createMedia(mediaArray) {
 		// divCard.appendChild(divCardPresentation);
 		const cardInfo = document.createElement('div');
 		cardInfo.classList.add('cardInfo');
+
+		const cardInfoLike = document.createElement('div');
+		cardInfoLike.classList.add('cardInfoLike');
+
 		const p = document.createElement('p');
 		p.textContent = media.title;
 
@@ -76,11 +92,11 @@ async function createMedia(mediaArray) {
 			let totalMediaLikes = 0;
 			mediaPhotographerFiltered.forEach(mediaLikes => {
 				totalMediaLikes = totalMediaLikes + mediaLikes.likes;
+				const divTotalLikes = document.createElement('div');
+				divTotalLikes.innerHTML = ` ${totalMediaLikes} ${heartIcon.outerHTML}	${mediaLikes.price}€ /jour`;
+				divTotalLikes.classList.add('divTotalLikes');
+				document.body.appendChild(divTotalLikes);
 			});
-			const divTotalLikes = document.createElement('div');
-			divTotalLikes.classList.add('divTotalLikes');
-			divTotalLikes.textContent = `Total Likes: ${totalMediaLikes}`;
-			document.body.appendChild(divTotalLikes);
 			// console.log('totalMediaLikes', totalMediaLikes);
 		}
 		totalLikes();
@@ -130,12 +146,14 @@ const buttonFilter = () => {
 		const option = document.createElement('option');
 		option.value = optionText;
 		option.text = optionText;
+		option.classList.add('options-style');
 		select.appendChild(option);
+
 		// console.dir('OPTION', option);
 		// console.log('option.text', option.text);
 	});
 	select.addEventListener('change', () => {
-		console.log('Option de filtre seléctionnée:', select.value);
+		// console.log('Option de filtre seléctionnée:', select.value);
 		if (select.value === 'Popularité') {
 			const mediaTabSort = mediaPhotographerFiltered
 				.slice()
