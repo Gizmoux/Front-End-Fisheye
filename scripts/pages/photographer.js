@@ -15,7 +15,7 @@ const mediaPhotographerFiltered = mediaPhotographers.filter(
 const selectedPhotographer = photographers.find(
 	photographer => photographer.id === photographerIdURL
 );
-console.log('photographers', photographers);
+// console.log('photographers', photographers);
 const fetchDataPhotographer = async () => {
 	try {
 		// Utilisez getPhotographers pour récupérer les données
@@ -38,8 +38,8 @@ const fetchDataPhotographer = async () => {
 			// mainElement.appendChild(divImageElement);
 			mainElement.classList.add('photographer_header-image');
 
-			console.log('selectedPhotographer :', selectedPhotographer);
-			console.log('mediaPhotographerFiltered', mediaPhotographerFiltered);
+			// console.log('selectedPhotographer :', selectedPhotographer);
+			// console.log('mediaPhotographerFiltered', mediaPhotographerFiltered);
 		} else {
 			console.error("Photographe non trouvé avec l'ID spécifié.");
 		}
@@ -82,6 +82,8 @@ async function createMedia(mediaArray) {
 		// Fonction pour ajouter un Like aux éléments
 		const addLike = () => {
 			likesElement.textContent = ` ${currentLikes + 1}`;
+
+			totalLikes();
 		};
 
 		cardInfo.addEventListener('click', addLike);
@@ -90,14 +92,22 @@ async function createMedia(mediaArray) {
 
 		function totalLikes() {
 			let totalMediaLikes = 0;
+			const divTotalLikes = document.createElement('div');
+			divTotalLikes.classList.add('divTotalLikes');
 			mediaPhotographerFiltered.forEach(mediaLikes => {
 				totalMediaLikes = totalMediaLikes + mediaLikes.likes;
-				const divTotalLikes = document.createElement('div');
 				divTotalLikes.innerHTML = ` ${totalMediaLikes} ${heartIcon.outerHTML}	${mediaLikes.price}€ /jour`;
-				divTotalLikes.classList.add('divTotalLikes');
 				document.body.appendChild(divTotalLikes);
 			});
 			// console.log('totalMediaLikes', totalMediaLikes);
+			// Ajouter 1 à totalMediaLikes
+			if (likesElement) {
+				likesElement.addEventListener('click', function () {
+					totalMediaLikes++;
+					console.log('totalMediaLikes', totalMediaLikes);
+					divTotalLikes.innerHTML = ` ${totalMediaLikes} ${heartIcon.outerHTML}	${mediaLikes.price}€ /jour`;
+				});
+			}
 		}
 		totalLikes();
 		// cardInfo.appendChild(heartIcon);
@@ -227,7 +237,6 @@ const lightbox = () => {
 
 			nextButton.addEventListener('click', () => showNextImage(index));
 			modalMedia.appendChild(nextButton);
-
 			displayModalMedia();
 		});
 	});
