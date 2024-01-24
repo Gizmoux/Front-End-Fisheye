@@ -57,13 +57,18 @@ formcontactname.textContent = `Contactez-moi ${nameForm}`;
 // Factory pour Media
 
 // const {} = await getPhotographers();
+const heartIcon = document.createElement('i');
+heartIcon.classList.add('fa-solid', 'fa-heart');
+let totalUpdateLikes = 0;
+
 async function createMedia(mediaArray) {
 	const mediaContainer = document.querySelector('.media-container');
 	// mediaContainer.innerHTML = '';
+
 	mediaArray.forEach(media => {
+		let currentLikes = media.likes;
 		const divCard = document.createElement('div');
 		divCard.classList.add('divCard');
-		let currentLikes = media.likes;
 
 		// divCard.appendChild(divCardPresentation);
 		const cardInfo = document.createElement('div');
@@ -75,41 +80,22 @@ async function createMedia(mediaArray) {
 		const p = document.createElement('p');
 		p.textContent = media.title;
 
-		const heartIcon = document.createElement('i');
-		heartIcon.classList.add('fa-solid', 'fa-heart');
 		const likesElement = document.createElement('span');
 		likesElement.textContent = ` ${currentLikes}`;
-		// Fonction pour ajouter un Like aux éléments
-		const addLike = () => {
-			likesElement.textContent = ` ${currentLikes + 1}`;
 
-			totalLikes();
+		// Fonction pour ajouter un Like aux éléments
+
+		const addLike = () => {
+			likesElement.textContent = `${currentLikes + 1}`;
+			totalUpdateLikes += 1;
+			divTotalLikes.innerHTML = ` ${totalUpdateLikes} ${heartIcon.outerHTML}	${media.price}€ /jour`;
+			cardInfo.removeEventListener('click', addLike);
 		};
 
 		cardInfo.addEventListener('click', addLike);
 
 		// Fonction Total de likes
 
-		function totalLikes() {
-			let totalMediaLikes = 0;
-			const divTotalLikes = document.createElement('div');
-			divTotalLikes.classList.add('divTotalLikes');
-			mediaPhotographerFiltered.forEach(mediaLikes => {
-				totalMediaLikes = totalMediaLikes + mediaLikes.likes;
-				divTotalLikes.innerHTML = ` ${totalMediaLikes} ${heartIcon.outerHTML}	${mediaLikes.price}€ /jour`;
-				document.body.appendChild(divTotalLikes);
-			});
-			// console.log('totalMediaLikes', totalMediaLikes);
-			// Ajouter 1 à totalMediaLikes
-			if (likesElement) {
-				likesElement.addEventListener('click', function () {
-					totalMediaLikes++;
-					console.log('totalMediaLikes', totalMediaLikes);
-					divTotalLikes.innerHTML = ` ${totalMediaLikes} ${heartIcon.outerHTML}	${mediaLikes.price}€ /jour`;
-				});
-			}
-		}
-		totalLikes();
 		// cardInfo.appendChild(heartIcon);
 		cardInfo.innerHTML = ` ${heartIcon.outerHTML}`;
 		document.body.appendChild(cardInfo);
@@ -144,6 +130,23 @@ async function createMedia(mediaArray) {
 createMedia(mediaPhotographerFiltered);
 
 // console.log('mediaPhotographersLIKES', mediaPhotographers[0].likes);
+const divTotalLikes = document.createElement('div');
+function totalLikes() {
+	let totalMediaLikes = 0;
+
+	divTotalLikes.classList.add('divTotalLikes');
+	mediaPhotographerFiltered.forEach(mediaLikes => {
+		totalMediaLikes = totalMediaLikes + mediaLikes.likes;
+		divTotalLikes.innerHTML = ` ${totalMediaLikes} ${heartIcon.outerHTML}	${mediaLikes.price}€ /jour`;
+
+		document.body.appendChild(divTotalLikes);
+	});
+
+	// console.log('totalUpdateLikes', totalUpdateLikes);
+	return totalMediaLikes;
+}
+totalLikes();
+totalUpdateLikes = totalLikes();
 
 // Bouton Filter
 const buttonFilter = () => {
@@ -209,9 +212,13 @@ const lightbox = () => {
 				? document.createElement('img')
 				: document.createElement('video');
 
-			mediaElement.src = selectedMedia.image
-				? `assets/images/${photographerIdURL}/${selectedMedia.image}`
-				: `assets/images/${photographerIdURL}/${selectedMedia.video}`;
+			if (selectedMedia.image) {
+				mediaElement.src = `assets/images/${photographerIdURL}/${selectedMedia.image}`;
+			} else {
+				mediaElement.src = `assets/images/${photographerIdURL}/${selectedMedia.video}`;
+				mediaElement.controls = true;
+				mediaElement.autoplay = true;
+			}
 
 			modalMedia.innerHTML = '';
 
