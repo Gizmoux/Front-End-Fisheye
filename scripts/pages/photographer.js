@@ -148,6 +148,8 @@ function totalLikes() {
 	return totalMediaLikes;
 }
 totalLikes();
+// Cette ligne appelle à nouveau la fonction totalLikes et assigne
+// sa valeur de retour (le nombre total de likes) à la variable totalUpdateLikes.
 totalUpdateLikes = totalLikes();
 
 // Bouton Filter
