@@ -113,15 +113,18 @@
 }
 .photographer_header-presentation article img {
 	position: relative;
-	height: 200px;
-	width: 200px;
-	margin: auto -165%;
+	height: 155px;
+	width: 155px;
+	margin: auto -155%;
 }
 .photographer_header-presentation h2 {
 	margin: 0px;
 }
 .photographer_header-presentation p {
 	margin: 0px;
+}
+.photograph-header span {
+	display: none;
 }
 .photographer_header-presentation button {
 	position: absolute;
@@ -178,7 +181,7 @@
 .modal {
 	border-radius: 5px;
 	background-color: #db8876;
-	width: 50%;
+	width: 40%;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -197,11 +200,22 @@
 }
 
 .modal header h2 {
-	font-size: 64px;
+	font-size: 40px;
 	font-weight: normal;
-	text-align: center;
-}
 
+	margin-top: -10px;
+}
+#form_contact-name {
+	/* background-color: red; */
+	display: flex;
+	text-align: start;
+	flex-direction: column;
+}
+#form_contact-name span {
+	font-size: 40px;
+	font-weight: normal;
+	margin-top: -45px;
+}
 form {
 	display: flex;
 	width: 100%;
@@ -269,8 +283,8 @@ form input {
 .modal-media video {
 	/* background-color: #901c1c; */
 	margin: 0% 0% -30% 5%;
-	width: 400px;
-	height: 400px;
+	width: 500px;
+	height: 500px;
 }
 .prevButton,
 .nextButton {

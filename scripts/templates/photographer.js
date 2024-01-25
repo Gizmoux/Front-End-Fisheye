@@ -18,14 +18,14 @@ export function photographerTemplate(data) {
 		h2.textContent = name;
 		h3.textContent = `${city}, ${country}`;
 		paragraphe.textContent = tagline;
-		// span.textContent = `${price}${'€/jour'}`;
+		span.textContent = `${price}${'€/jour'}`;
 		article.appendChild(img);
 		article.appendChild(divPres);
 		divPres.appendChild(h2);
 		divPres.appendChild(h3);
 		divPres.appendChild(paragraphe);
+		divPres.appendChild(span);
 
-		// article.appendChild(span);
 		// FONCTION CLICK SUR LES PHOTOS ET ENVOIE SUR LA PAGE DU PHOTOGRAPHE CHOISI
 		const linkElement = img.addEventListener('click', () => {
 			window.location.href = `photographer.html?id=${id}`;

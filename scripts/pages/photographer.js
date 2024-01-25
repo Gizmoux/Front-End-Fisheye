@@ -15,7 +15,7 @@ const mediaPhotographerFiltered = mediaPhotographers.filter(
 const selectedPhotographer = photographers.find(
 	photographer => photographer.id === photographerIdURL
 );
-// console.log('photographers', photographers);
+console.log('photographers', photographers);
 const fetchDataPhotographer = async () => {
 	try {
 		// Utilisez getPhotographers pour récupérer les données
@@ -38,8 +38,8 @@ const fetchDataPhotographer = async () => {
 			// mainElement.appendChild(divImageElement);
 			mainElement.classList.add('photographer_header-image');
 
-			// console.log('selectedPhotographer :', selectedPhotographer);
-			// console.log('mediaPhotographerFiltered', mediaPhotographerFiltered);
+			console.log('selectedPhotographer :', selectedPhotographer);
+			console.log('mediaPhotographerFiltered', mediaPhotographerFiltered);
 		} else {
 			console.error("Photographe non trouvé avec l'ID spécifié.");
 		}
@@ -50,9 +50,10 @@ const fetchDataPhotographer = async () => {
 // Appeler la fonction pour récupérer et afficher les données du photographe
 fetchDataPhotographer();
 //Afficher nom dans le form
-const formcontactname = document.getElementById('form_contact-name');
+const formcontactname = document.querySelector('#form_contact-name>span');
+
 const nameForm = selectedPhotographer.name;
-formcontactname.textContent = `Contactez-moi ${nameForm}`;
+formcontactname.textContent = `${nameForm}`;
 
 // Factory pour Media
 
@@ -88,8 +89,9 @@ async function createMedia(mediaArray) {
 		const addLike = () => {
 			likesElement.textContent = `${currentLikes + 1}`;
 			totalUpdateLikes += 1;
-			divTotalLikes.innerHTML = ` ${totalUpdateLikes} ${heartIcon.outerHTML}	${media.price}€ /jour`;
+			divTotalLikes.innerHTML = ` ${totalUpdateLikes} ${heartIcon.outerHTML}	${selectedPhotographer.price}€ /jour`;
 			cardInfo.removeEventListener('click', addLike);
+			console.log(selectedPhotographer.price);
 		};
 
 		cardInfo.addEventListener('click', addLike);
@@ -137,7 +139,7 @@ function totalLikes() {
 	divTotalLikes.classList.add('divTotalLikes');
 	mediaPhotographerFiltered.forEach(mediaLikes => {
 		totalMediaLikes = totalMediaLikes + mediaLikes.likes;
-		divTotalLikes.innerHTML = ` ${totalMediaLikes} ${heartIcon.outerHTML}	${mediaLikes.price}€ /jour`;
+		divTotalLikes.innerHTML = ` ${totalMediaLikes} ${heartIcon.outerHTML}	${selectedPhotographer.price}€ /jour`;
 
 		document.body.appendChild(divTotalLikes);
 	});
