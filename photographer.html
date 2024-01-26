@@ -17,13 +17,21 @@
 	</head>
 	<body>
 		<header>
-			<a href="http://127.0.0.1:5500/">
-				<img src="assets/images/logo.png" class="logo" />
+			<a href="http://127.0.0.1:5500/" aria-label="Accueil">
+				<img
+					src="assets/images/logo.png"
+					class="logo"
+					alt="Fisheye Home page"
+				/>
 			</a>
 		</header>
 		<main id="main">
 			<div class="photograph-header">
-				<button class="contact_button" onclick="displayModal()">
+				<button
+					class="contact_button"
+					aria-label="Contactez-moi"
+					onclick="displayModal()"
+				>
 					Contactez-moi
 				</button>
 			</div>
@@ -33,41 +41,61 @@
 
 			<div class="media-container"></div>
 		</main>
-		<div id="lightbox">
-			<div class="modal-media"></div>
+		<div id="lightbox" role="dialog" aria-modal="true">
+			<div
+				class="modal-media"
+				role="dialog"
+				aria-modal="true"
+				aria-label="Zoom de l'image"
+			></div>
 		</div>
-		<div id="contact_modal">
+		<div id="contact_modal" aria-hidden="true">
 			<div class="modal">
 				<header>
 					<div id="form_contact-name">
 						<h2>Contactez-moi</h2>
-						<span>NOMPHOTOGRAPHE</span>
+						<span></span>
 					</div>
-					<img src="assets/icons/close.svg" onclick="closeModal()" />
+					<img
+						src="assets/icons/close.svg"
+						alt="Fermer la fenêtre du formulaire"
+						onclick="closeModal()"
+					/>
 				</header>
 
 				<form id="contact-form">
 					<div class="firstname-container">
 						<label for="firstname">Prénom</label>
-						<input id="firstname" type="text" />
-						<span id="firstnameError"></span>
+						<input id="firstname" type="text" aria-labelledby="Prénom" />
+						<span id="firstnameError" aria-live="polite"></span>
 					</div>
 					<div>
 						<label for="lastname">Nom</label>
-						<input id="lastname" type="text" />
-						<span id="lastnameError"></span>
+						<input id="lastname" type="text" aria-labelledby="Nom" />
+						<span id="lastnameError" aria-live="polite"></span>
 					</div>
 					<div>
 						<label for="email">Email</label>
-						<input id="email" type="text" />
-						<span id="emailError"></span>
+						<input id="email" type="text" aria-labelledby="Email" />
+						<span id="emailError" aria-live="polite"></span>
 					</div>
 					<div class="message-container">
 						<label for="message">Votre message</label>
-						<textarea id="message"></textarea>
-						<span id="messageError"></span>
+						<textarea
+							id="message"
+							rows="8"
+							cols="68"
+							aria-labelledby="Votre message"
+						></textarea>
+						<span id="messageError" aria-live="polite"></span>
 					</div>
-					<button class="contact_button">Envoyer</button>
+					<button
+						class="contact_button"
+						aria-live="polite"
+						aria-label="Envoyer"
+					>
+						Envoyer
+					</button>
 				</form>
 			</div>
 		</div>

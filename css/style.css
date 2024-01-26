@@ -12,7 +12,9 @@ header {
 	align-items: center;
 	height: 90px;
 }
-
+img {
+	cursor: pointer;
+}
 h1 {
 	color: #901c1c;
 	margin-right: 100px;

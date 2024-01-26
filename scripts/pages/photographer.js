@@ -59,6 +59,7 @@ formcontactname.textContent = `${nameForm}`;
 
 // const {} = await getPhotographers();
 const heartIcon = document.createElement('i');
+heartIcon.setAttribute('aria-label', 'likes');
 heartIcon.classList.add('fa-solid', 'fa-heart');
 let totalUpdateLikes = 0;
 
@@ -109,7 +110,7 @@ async function createMedia(mediaArray) {
 			imageElement.classList.add('elementToLightbox');
 
 			imageElement.src = `assets/images/${photographerIdURL}/${media.image}`;
-			imageElement.alt = media.title;
+			imageElement.alt = media.alt;
 			divCard.appendChild(imageElement);
 		} else if (media.video) {
 			const videoElement = document.createElement('video');
@@ -156,6 +157,7 @@ totalUpdateLikes = totalLikes();
 const buttonFilter = () => {
 	const filterContainer = document.querySelector('#filter-container');
 	const select = document.createElement('select');
+	select.setAttribute('aria-label', 'Order by');
 	const filterOptions = ['Popularité', 'Date', 'Titre'];
 
 	filterContainer.appendChild(select);
@@ -207,6 +209,7 @@ const modalMedia = document.querySelector('.modal-media');
 const displayModalMedia = () => {
 	modalMedia.style.display = 'block';
 };
+
 const lightbox = () => {
 	lightboxElements.forEach((element, index) => {
 		element.addEventListener('click', () => {
@@ -215,7 +218,7 @@ const lightbox = () => {
 			const mediaElement = selectedMedia.image
 				? document.createElement('img')
 				: document.createElement('video');
-
+			mediaElement.alt = selectedMedia.alt;
 			if (selectedMedia.image) {
 				mediaElement.src = `assets/images/${photographerIdURL}/${selectedMedia.image}`;
 			} else {
@@ -230,6 +233,7 @@ const lightbox = () => {
 			const prevButton = document.createElement('button');
 			prevButton.innerHTML = '<';
 			prevButton.classList.add('prevButton');
+			prevButton.setAttribute('aria-label', 'Previous Image');
 
 			prevButton.addEventListener('click', () => showPreviousImage(index));
 			modalMedia.appendChild(prevButton);
@@ -245,15 +249,20 @@ const lightbox = () => {
 			const nextButton = document.createElement('button');
 			nextButton.innerHTML = '>';
 			nextButton.classList.add('nextButton');
+			nextButton.setAttribute('aria-label', 'Next Image');
 
 			nextButton.addEventListener('click', () => showNextImage(index));
 			modalMedia.appendChild(nextButton);
 			displayModalMedia();
+			document
+				.querySelector('.modal-media')
+				.setAttribute('aria-hidden', 'false');
 		});
 	});
 	function closeButtonModal() {
 		const modal = document.querySelector('.modal-media');
 		modal.style.display = 'none';
+		modal.setAttribute('aria-hidden', 'true');
 	}
 	// Image précédente
 	const showPreviousImage = currentIndex => {

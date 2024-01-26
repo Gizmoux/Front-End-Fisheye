@@ -14,11 +14,23 @@ export function photographerTemplate(data) {
 		const paragraphe = document.createElement('p');
 		const span = document.createElement('span');
 
+		// SET ATTRIBUTES AND TEXT CONTENT
 		img.setAttribute('src', picture);
+		img.setAttribute('alt', `Photo de ${name}`);
 		h2.textContent = name;
 		h3.textContent = `${city}, ${country}`;
 		paragraphe.textContent = tagline;
 		span.textContent = `${price}${'€/jour'}`;
+
+		// ADD ARIA AND ROLE ATTRIBUTES
+		article.setAttribute('role', 'article');
+		img.setAttribute('role', 'img');
+		img.setAttribute('aria-label', `${name}'s portrait`);
+		h2.setAttribute('role', 'heading');
+		h2.setAttribute('aria-level', '2');
+		h3.setAttribute('role', 'heading');
+		h3.setAttribute('aria-level', '3');
+
 		article.appendChild(img);
 		article.appendChild(divPres);
 		divPres.appendChild(h2);
@@ -29,7 +41,15 @@ export function photographerTemplate(data) {
 		// FONCTION CLICK SUR LES PHOTOS ET ENVOIE SUR LA PAGE DU PHOTOGRAPHE CHOISI
 		const linkElement = img.addEventListener('click', () => {
 			window.location.href = `photographer.html?id=${id}`;
-			console.log('LINKELEMENT', linkElement);
+			// console.log('LINKELEMENT', linkElement);
+		});
+		// ADD FOCUS STYLES FOR ACCESSIBILITY
+		img.addEventListener('focus', () => {
+			article.classList.add('focused');
+		});
+
+		img.addEventListener('blur', () => {
+			article.classList.remove('focused');
 		});
 		return article;
 	}

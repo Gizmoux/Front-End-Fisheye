@@ -1,11 +1,13 @@
 function displayModal() {
 	const modal = document.getElementById('contact_modal');
 	modal.style.display = 'block';
+	modal.setAttribute('aria-hidden', 'false');
 }
 
 function closeModal() {
 	const modal = document.getElementById('contact_modal');
 	modal.style.display = 'none';
+	modal.setAttribute('aria-hidden', 'true');
 }
 
 // REGEX
@@ -76,11 +78,11 @@ form.addEventListener('submit', event => {
 		!emailError.textContent &&
 		!messageError.textContent
 	) {
-		//Launch modalValidation "Votre réservation a été reçue."
-		closeModal();
 		console.log('Prénom:', firstname.value);
 		console.log('Nom:', lastname.value);
 		console.log('Email:', email.value);
 		console.log('Message:', message.value);
+		//Launch modalValidation "Votre réservation a été reçue."
+		closeModal();
 	}
 });
