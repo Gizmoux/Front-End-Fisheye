@@ -60,6 +60,7 @@ formcontactname.textContent = `${nameForm}`;
 // const {} = await getPhotographers();
 const heartIcon = document.createElement('i');
 heartIcon.setAttribute('aria-label', 'likes');
+heartIcon.setAttribute('tabindex', '0');
 heartIcon.classList.add('fa-solid', 'fa-heart');
 let totalUpdateLikes = 0;
 
@@ -70,6 +71,7 @@ async function createMedia(mediaArray) {
 	mediaArray.forEach(media => {
 		let currentLikes = media.likes;
 		const divCard = document.createElement('div');
+
 		divCard.classList.add('divCard');
 
 		// divCard.appendChild(divCardPresentation);
@@ -92,14 +94,20 @@ async function createMedia(mediaArray) {
 			totalUpdateLikes += 1;
 			divTotalLikes.innerHTML = ` ${totalUpdateLikes} ${heartIcon.outerHTML}	${selectedPhotographer.price}€ /jour`;
 			cardInfo.removeEventListener('click', addLike);
-			console.log(selectedPhotographer.price);
+			// console.log(selectedPhotographer.price);
 		};
 
 		cardInfo.addEventListener('click', addLike);
+		cardInfo.addEventListener('keydown', event => {
+			if (event.keydown === 'Enter') {
+				addLike();
+			}
+		});
 
 		// Fonction Total de likes
 
 		// cardInfo.appendChild(heartIcon);
+		cardInfo.setAttribute('tabindex', '0');
 		cardInfo.innerHTML = ` ${heartIcon.outerHTML}`;
 		document.body.appendChild(cardInfo);
 		cardInfo.appendChild(likesElement);
@@ -209,72 +217,168 @@ const modalMedia = document.querySelector('.modal-media');
 const displayModalMedia = () => {
 	modalMedia.style.display = 'block';
 };
-
 const lightbox = () => {
+	let currentIndex;
+
+	const handleActivation = index => {
+		currentIndex = index;
+		const selectedMedia = mediaPhotographerFiltered[index];
+		const mediaElement = selectedMedia.image
+			? document.createElement('img')
+			: document.createElement('video');
+		mediaElement.alt = selectedMedia.alt;
+		if (selectedMedia.image) {
+			mediaElement.src = `assets/images/${photographerIdURL}/${selectedMedia.image}`;
+		} else {
+			mediaElement.src = `assets/images/${photographerIdURL}/${selectedMedia.video}`;
+			mediaElement.controls = true;
+			mediaElement.autoplay = true;
+		}
+
+		modalMedia.innerHTML = '';
+
+		// Bouton précédent
+		const prevButton = document.createElement('button');
+		prevButton.innerHTML = '<';
+		prevButton.classList.add('prevButton');
+		prevButton.setAttribute('aria-label', 'Previous Image');
+		prevButton.addEventListener('click', showPreviousImage);
+		modalMedia.appendChild(prevButton);
+		modalMedia.appendChild(mediaElement);
+
+		// Bouton suivant
+		const closeButton = document.createElement('button');
+		closeButton.innerHTML = 'X';
+		closeButton.classList.add('close-modal');
+		closeButton.addEventListener('click', closeButtonModal);
+		modalMedia.appendChild(closeButton);
+
+		const nextButton = document.createElement('button');
+		nextButton.innerHTML = '>';
+		nextButton.classList.add('nextButton');
+		nextButton.setAttribute('aria-label', 'Next Image');
+		nextButton.addEventListener('click', showNextImage);
+		modalMedia.appendChild(nextButton);
+
+		displayModalMedia();
+		document.querySelector('.modal-media').setAttribute('aria-hidden', 'false');
+	};
+
 	lightboxElements.forEach((element, index) => {
-		element.addEventListener('click', () => {
-			const selectedMedia = mediaPhotographerFiltered[index];
-			// console.log('selectedMedia', selectedMedia);
-			const mediaElement = selectedMedia.image
-				? document.createElement('img')
-				: document.createElement('video');
-			mediaElement.alt = selectedMedia.alt;
-			if (selectedMedia.image) {
-				mediaElement.src = `assets/images/${photographerIdURL}/${selectedMedia.image}`;
-			} else {
-				mediaElement.src = `assets/images/${photographerIdURL}/${selectedMedia.video}`;
-				mediaElement.controls = true;
-				mediaElement.autoplay = true;
+		// Ajoutez un gestionnaire d'événements pour le clic de la souris
+		element.addEventListener('click', () => handleActivation(index));
+
+		// Ajoutez un gestionnaire d'événements pour la touche "Enter"
+		element.setAttribute('tabindex', '0');
+		element.addEventListener('keydown', event => {
+			if (event.key === 'Enter') {
+				handleActivation(index);
 			}
-
-			modalMedia.innerHTML = '';
-
-			// Bouton précédent
-			const prevButton = document.createElement('button');
-			prevButton.innerHTML = '<';
-			prevButton.classList.add('prevButton');
-			prevButton.setAttribute('aria-label', 'Previous Image');
-
-			prevButton.addEventListener('click', () => showPreviousImage(index));
-			modalMedia.appendChild(prevButton);
-			modalMedia.appendChild(mediaElement);
-
-			// Bouton suivant
-			const closeButton = document.createElement('button');
-			closeButton.innerHTML = 'X';
-			closeButton.classList.add('close-modal');
-			modalMedia.appendChild(closeButton);
-			closeButton.addEventListener('click', closeButtonModal);
-
-			const nextButton = document.createElement('button');
-			nextButton.innerHTML = '>';
-			nextButton.classList.add('nextButton');
-			nextButton.setAttribute('aria-label', 'Next Image');
-
-			nextButton.addEventListener('click', () => showNextImage(index));
-			modalMedia.appendChild(nextButton);
-			displayModalMedia();
-			document
-				.querySelector('.modal-media')
-				.setAttribute('aria-hidden', 'false');
 		});
 	});
-	function closeButtonModal() {
+
+	const closeButtonModal = () => {
 		const modal = document.querySelector('.modal-media');
 		modal.style.display = 'none';
 		modal.setAttribute('aria-hidden', 'true');
-	}
-	// Image précédente
-	const showPreviousImage = currentIndex => {
-		const newIndex = currentIndex - 1;
-		lightboxElements[newIndex].click();
 	};
 
-	// Image suivantr
-	const showNextImage = currentIndex => {
-		const newIndex = currentIndex + 1;
-		lightboxElements[newIndex].click();
+	// Image précédente
+	const showPreviousImage = () => {
+		const newIndex = currentIndex - 1;
+		handleActivation(newIndex);
 	};
+
+	// Image suivante
+	const showNextImage = () => {
+		const newIndex = currentIndex + 1;
+		handleActivation(newIndex);
+	};
+
+	const handleKeyUp = event => {
+		switch (event.key) {
+			case 'Escape':
+				closeButtonModal();
+				break;
+			case 'ArrowLeft':
+				showPreviousImage();
+				break;
+			case 'ArrowRight':
+				showNextImage();
+				break;
+		}
+	};
+
+	document.addEventListener('keyup', handleKeyUp);
 };
 
 lightbox();
+
+// const lightbox = () => {
+// 	lightboxElements.forEach((element, index) => {
+// 		element.addEventListener('click', () => {
+// 			const selectedMedia = mediaPhotographerFiltered[index];
+// 			// console.log('selectedMedia', selectedMedia);
+// 			const mediaElement = selectedMedia.image
+// 				? document.createElement('img')
+// 				: document.createElement('video');
+// 			mediaElement.alt = selectedMedia.alt;
+// 			if (selectedMedia.image) {
+// 				mediaElement.src = `assets/images/${photographerIdURL}/${selectedMedia.image}`;
+// 			} else {
+// 				mediaElement.src = `assets/images/${photographerIdURL}/${selectedMedia.video}`;
+// 				mediaElement.controls = true;
+// 				mediaElement.autoplay = true;
+// 			}
+
+// 			modalMedia.innerHTML = '';
+
+// 			// Bouton précédent
+// 			const prevButton = document.createElement('button');
+// 			prevButton.innerHTML = '<';
+// 			prevButton.classList.add('prevButton');
+// 			prevButton.setAttribute('aria-label', 'Previous Image');
+
+// 			prevButton.addEventListener('click', () => showPreviousImage(index));
+// 			modalMedia.appendChild(prevButton);
+// 			modalMedia.appendChild(mediaElement);
+
+// 			// Bouton suivant
+// 			const closeButton = document.createElement('button');
+// 			closeButton.innerHTML = 'X';
+// 			closeButton.classList.add('close-modal');
+// 			modalMedia.appendChild(closeButton);
+// 			closeButton.addEventListener('click', closeButtonModal);
+
+// 			const nextButton = document.createElement('button');
+// 			nextButton.innerHTML = '>';
+// 			nextButton.classList.add('nextButton');
+// 			nextButton.setAttribute('aria-label', 'Next Image');
+
+// 			nextButton.addEventListener('click', () => showNextImage(index));
+// 			modalMedia.appendChild(nextButton);
+// 			displayModalMedia();
+// 			document
+// 				.querySelector('.modal-media')
+// 				.setAttribute('aria-hidden', 'false');
+// 		});
+// 	});
+// 	function closeButtonModal() {
+// 		const modal = document.querySelector('.modal-media');
+// 		modal.style.display = 'none';
+// 		modal.setAttribute('aria-hidden', 'true');
+// 	}
+// 	// Image précédente
+// 	const showPreviousImage = currentIndex => {
+// 		const newIndex = currentIndex - 1;
+// 		lightboxElements[newIndex].click();
+// 	};
+
+// 	// Image suivantr
+// 	const showNextImage = currentIndex => {
+// 		const newIndex = currentIndex + 1;
+// 		lightboxElements[newIndex].click();
+// 	};
+// };
+
+// lightbox();

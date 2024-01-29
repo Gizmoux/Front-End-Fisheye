@@ -17,7 +17,7 @@
 	</head>
 	<body>
 		<header>
-			<a href="http://127.0.0.1:5500/" aria-label="Accueil">
+			<a href="http://127.0.0.1:5500/" aria-label="Accueil" tabindex="0">
 				<img
 					src="assets/images/logo.png"
 					class="logo"
@@ -31,6 +31,7 @@
 					class="contact_button"
 					aria-label="Contactez-moi"
 					onclick="displayModal()"
+					tabindex="0"
 				>
 					Contactez-moi
 				</button>
@@ -60,23 +61,41 @@
 						src="assets/icons/close.svg"
 						alt="Fermer la fenêtre du formulaire"
 						onclick="closeModal()"
+						aria-label="Close Contact Form"
+						class="close-modal-image"
+						tabindex="0"
 					/>
 				</header>
 
 				<form id="contact-form">
 					<div class="firstname-container">
 						<label for="firstname">Prénom</label>
-						<input id="firstname" type="text" aria-labelledby="Prénom" />
+						<input
+							id="firstname"
+							type="text"
+							aria-labelledby="Prénom"
+							tabindex="0"
+						/>
 						<span id="firstnameError" aria-live="polite"></span>
 					</div>
 					<div>
 						<label for="lastname">Nom</label>
-						<input id="lastname" type="text" aria-labelledby="Nom" />
+						<input
+							id="lastname"
+							type="text"
+							aria-labelledby="Nom"
+							tabindex="0"
+						/>
 						<span id="lastnameError" aria-live="polite"></span>
 					</div>
 					<div>
 						<label for="email">Email</label>
-						<input id="email" type="text" aria-labelledby="Email" />
+						<input
+							id="email"
+							type="text"
+							aria-labelledby="Email"
+							tabindex="0"
+						/>
 						<span id="emailError" aria-live="polite"></span>
 					</div>
 					<div class="message-container">
@@ -86,6 +105,7 @@
 							rows="8"
 							cols="68"
 							aria-labelledby="Votre message"
+							tabindex="0"
 						></textarea>
 						<span id="messageError" aria-live="polite"></span>
 					</div>
@@ -93,6 +113,7 @@
 						class="contact_button"
 						aria-live="polite"
 						aria-label="Envoyer"
+						tabindex="0"
 					>
 						Envoyer
 					</button>

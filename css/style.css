@@ -26,6 +26,11 @@ h3 {
 	height: 50px;
 	margin-left: 100px;
 }
+.logo:focus {
+	outline: 2px solid #901c1c;
+	border-radius: 5px;
+	padding: 5px;
+}
 .divPresentation {
 	display: flex;
 	flex-direction: column;
@@ -47,9 +52,11 @@ h3 {
 
 .photographer_section article h2 {
 	color: #d3573c;
-	font-size: 30px;
+	display: flex;
+	justify-content: center;
 	font-weight: lighter;
-	margin: 10px 0px;
+	margin: 0px -26px;
+	font-size: 30px;
 }
 .photographer_section article h3 {
 	margin: 5px 0px 0px 0px;
