@@ -71,7 +71,6 @@ async function createMedia(mediaArray) {
 	mediaArray.forEach(media => {
 		let currentLikes = media.likes;
 		const divCard = document.createElement('div');
-
 		divCard.classList.add('divCard');
 
 		// divCard.appendChild(divCardPresentation);
@@ -88,26 +87,28 @@ async function createMedia(mediaArray) {
 		likesElement.textContent = ` ${currentLikes}`;
 
 		// Fonction pour ajouter un Like aux éléments
-
-		const addLike = () => {
+		const updateLikesInfo = () => {
 			likesElement.textContent = `${currentLikes + 1}`;
 			totalUpdateLikes += 1;
-			divTotalLikes.innerHTML = ` ${totalUpdateLikes} ${heartIcon.outerHTML}	${selectedPhotographer.price}€ /jour`;
+			divTotalLikes.innerHTML = ` ${totalUpdateLikes} ${heartIcon.outerHTML} ${selectedPhotographer.price}€ /jour`;
+		};
+		const addLike = () => {
+			updateLikesInfo();
 			cardInfo.removeEventListener('click', addLike);
-			// console.log(selectedPhotographer.price);
 		};
 
 		cardInfo.addEventListener('click', addLike);
-		cardInfo.addEventListener('keydown', event => {
-			if (event.keydown === 'Enter') {
-				addLike();
-			}
-		});
 
+		const handleKeyPress = event => {
+			if (event.key === 'Enter') {
+				updateLikesInfo();
+				cardInfo.removeEventListener('keydown', handleKeyPress);
+			}
+		};
+		cardInfo.addEventListener('keydown', handleKeyPress);
 		// Fonction Total de likes
 
 		// cardInfo.appendChild(heartIcon);
-		cardInfo.setAttribute('tabindex', '0');
 		cardInfo.innerHTML = ` ${heartIcon.outerHTML}`;
 		document.body.appendChild(cardInfo);
 		cardInfo.appendChild(likesElement);

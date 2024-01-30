@@ -2,7 +2,6 @@ function displayModal() {
 	const modal = document.getElementById('contact_modal');
 	modal.style.display = 'block';
 	document.querySelector('.close-modal-image').focus();
-
 	modal.setAttribute('aria-hidden', 'false');
 }
 
@@ -85,6 +84,12 @@ form.addEventListener('submit', event => {
 		console.log('Email:', email.value);
 		console.log('Message:', message.value);
 		//Launch modalValidation "Votre réservation a été reçue."
+		closeModal();
+	}
+});
+
+document.addEventListener('keydown', event => {
+	if (event.key === 'Escape') {
 		closeModal();
 	}
 });
