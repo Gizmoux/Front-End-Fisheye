@@ -36,8 +36,55 @@
 					Contactez-moi
 				</button>
 			</div>
-			<div id="filter-container">
+			<!-- <div id="filter-container">
 				<label for="filter-button">Trier par</label>
+			</div> -->
+			<div class="filter">
+				<span class="filter_title">Trier par</span>
+				<div class="dropdown">
+					<button
+						class="btn_list"
+						type="button"
+						role="button"
+						tabindex="0"
+						aria-haspopup="listbox"
+					>
+						<span id="current_filter">Popularité</span>
+						<i class="fas fa-chevron-down"></i>
+						<i class="fas fa-chevron-up"></i>
+					</button>
+					<ul
+						class="dropdown_content"
+						aria-hidden="true"
+						role="listbox"
+						tabindex="0"
+					>
+						<li
+							class="menu-item"
+							role="option"
+							aria-selected="true"
+							tabindex="0"
+						>
+							<button>Titre</button>
+						</li>
+						<li
+							class="menu-item"
+							role="option"
+							aria-selected="true"
+							tabindex="0"
+						>
+							<button>Popularité</button>
+						</li>
+						<li
+							class="menu-item"
+							role="option"
+							aria-selected="true"
+							tabindex="0"
+						>
+							<button>Date</button>
+						</li>
+					</ul>
+				</div>
 			</div>
 
 			<div class="media-container"></div>
@@ -102,8 +149,6 @@
 						<label for="message">Votre message</label>
 						<textarea
 							id="message"
-							rows="8"
-							cols="68"
 							aria-labelledby="Votre message"
 							tabindex="0"
 						></textarea>

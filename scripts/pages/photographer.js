@@ -163,61 +163,150 @@ totalLikes();
 totalUpdateLikes = totalLikes();
 
 // Bouton Filter
-const buttonFilter = () => {
-	const filterContainer = document.querySelector('#filter-container');
-	const select = document.createElement('select');
-	select.setAttribute('aria-label', 'Order by');
-	const filterOptions = ['Popularité', 'Date', 'Titre'];
+// const buttonFilter = () => {
+// 	const filterContainer = document.querySelector('#filter-container');
+// 	const select = document.createElement('select');
+// 	select.setAttribute('aria-label', 'Order by');
+// 	const filterOptions = ['Popularité', 'Date', 'Titre'];
 
-	filterContainer.appendChild(select);
-	filterOptions.forEach(optionText => {
-		const option = document.createElement('option');
-		option.value = optionText;
-		option.text = optionText;
-		option.classList.add('options-style');
-		select.appendChild(option);
+// 	filterContainer.appendChild(select);
+// 	filterOptions.forEach(optionText => {
+// 		const option = document.createElement('option');
+// 		option.value = optionText;
+// 		option.text = optionText;
+// 		option.classList.add('options-style');
+// 		select.appendChild(option);
 
-		// console.dir('OPTION', option);
-		// console.log('option.text', option.text);
-	});
-	select.addEventListener('change', () => {
-		// console.log('Option de filtre seléctionnée:', select.value);
-		if (select.value === 'Popularité') {
-			const mediaTabSort = mediaPhotographerFiltered
-				.slice()
-				.sort((a, b) => b.likes - a.likes);
+// 		// console.dir('OPTION', option);
+// 		// console.log('option.text', option.text);
+// 	});
+// 	select.addEventListener('change', () => {
+// 		// console.log('Option de filtre seléctionnée:', select.value);
+// 		if (select.value === 'Popularité') {
+// 			const mediaTabSort = mediaPhotographerFiltered
+// 				.slice()
+// 				.sort((a, b) => b.likes - a.likes);
 
-			document.querySelector('.media-container').innerHTML = '';
-			createMedia(mediaTabSort);
-			// console.log('mediaTAB', likesTab);
-			// console.log('mediaTabSort', mediaTabSort);
-		} else if (select.value === 'Date') {
-			const mediaTabSort = mediaPhotographerFiltered
-				.slice()
-				.sort((a, b) => new Date(a.date) - new Date(b.date));
+// 			document.querySelector('.media-container').innerHTML = '';
+// 			createMedia(mediaTabSort);
+// 			// console.log('mediaTAB', likesTab);
+// 			// console.log('mediaTabSort', mediaTabSort);
+// 		} else if (select.value === 'Date') {
+// 			const mediaTabSort = mediaPhotographerFiltered
+// 				.slice()
+// 				.sort((a, b) => new Date(a.date) - new Date(b.date));
 
-			document.querySelector('.media-container').innerHTML = '';
-			createMedia(mediaTabSort);
-		} else if (select.value === 'Titre') {
-			const mediaTabSort = mediaPhotographerFiltered
-				.slice()
-				.sort((a, b) => a.title.localeCompare(b.title));
-			console.log('mediaTabSort', mediaTabSort);
-			document.querySelector('.media-container').innerHTML = '';
-			createMedia(mediaTabSort);
-		}
-		// console.log('mediaPhotographers.date', mediaPhotographers.date);
-		// console.log('mediaPhotographers.title', mediaPhotographers.title);
+// 			document.querySelector('.media-container').innerHTML = '';
+// 			createMedia(mediaTabSort);
+// 		} else if (select.value === 'Titre') {
+// 			const mediaTabSort = mediaPhotographerFiltered
+// 				.slice()
+// 				.sort((a, b) => a.title.localeCompare(b.title));
+// 			console.log('mediaTabSort', mediaTabSort);
+// 			document.querySelector('.media-container').innerHTML = '';
+// 			createMedia(mediaTabSort);
+// 		}
+// 		// console.log('mediaPhotographers.date', mediaPhotographers.date);
+// 		// console.log('mediaPhotographers.title', mediaPhotographers.title);
+// 	});
+// };
+// buttonFilter();
+
+const dropdownButton = document.querySelector('.btn_list');
+const dropdownOptions = document.querySelectorAll(
+	'.dropdown_content li button'
+);
+const chevronIcon = document.querySelector('.fas.fa-chevron-down');
+const chevronIconUp = document.querySelector('.fas.fa-chevron-up');
+const dropdownContent = document.querySelector('.dropdown_content');
+
+chevronIcon.addEventListener('click', () => {
+	// Toggle la classe pour afficher ou cacher les options
+	chevronIconUp.style.display = 'block';
+	chevronIcon.style.display = 'none';
+	dropdownContent.classList.toggle('show-options');
+});
+chevronIconUp.addEventListener('click', () => {
+	// Toggle la classe pour afficher ou cacher les options
+	chevronIconUp.style.display = 'none';
+	chevronIcon.style.display = 'block';
+	dropdownContent.classList.toggle('show-options');
+});
+
+// Ajouter un écouteur d'événements pour chaque option
+const allLightboxElements = handleActivation => {
+	const lightboxElements = document.querySelectorAll('.elementToLightbox');
+	lightboxElements.forEach((element, index) => {
+		// Ajoutez un gestionnaire d'événements pour le clic de la souris
+		element.addEventListener('click', () => handleActivation(index));
+
+		// Ajoutez un gestionnaire d'événements pour la touche "Enter"
+		element.setAttribute('tabindex', '0');
+		element.addEventListener('keydown', event => {
+			if (event.key === 'Enter') {
+				handleActivation(index);
+			}
+		});
 	});
 };
-buttonFilter();
+
+dropdownOptions.forEach(option => {
+	option.addEventListener('click', handleActivation => {
+		// Mettre à jour le texte du bouton avec l'option sélectionnée
+		document.getElementById('current_filter').textContent = option.textContent;
+		// Cacher les options après avoir sélectionné une option
+		dropdownContent.classList.remove('show-options');
+		if (option.textContent === 'Popularité') {
+			const mediaTabSort = mediaPhotographerFiltered.sort(
+				(a, b) => b.likes - a.likes
+			);
+			document.querySelector('.media-container').innerHTML = '';
+
+			chevronIcon.style.display = 'block';
+			chevronIconUp.style.display = 'none';
+
+			createMedia(mediaTabSort);
+			allLightboxElements(handleActivation);
+			// console.log('mediaTAB', likesTab);
+			console.log('mediaTabSortPopularité', mediaTabSort);
+		} else if (option.textContent === 'Date') {
+			const mediaTabSort = mediaPhotographerFiltered.sort(
+				(a, b) => new Date(a.date) - new Date(b.date)
+			);
+			document.querySelector('.media-container').innerHTML = '';
+
+			console.log('mediaTabSortDate', mediaTabSort);
+
+			chevronIcon.style.display = 'block';
+			chevronIconUp.style.display = 'none';
+
+			createMedia(mediaTabSort);
+			allLightboxElements(handleActivation);
+		} else if (option.textContent === 'Titre') {
+			const mediaTabSort = mediaPhotographerFiltered.sort((a, b) =>
+				a.title.localeCompare(b.title)
+			);
+			document.querySelector('.media-container').innerHTML = '';
+
+			console.log('mediaTabSortTitre', mediaTabSort);
+
+			chevronIcon.style.display = 'block';
+			chevronIconUp.style.display = 'none';
+
+			createMedia(mediaTabSort);
+			allLightboxElements(handleActivation);
+		}
+	});
+
+	console.log('je suis dans les options filtres');
+});
 
 // Fonction pour la Lightbox
-const lightboxElements = document.querySelectorAll('.elementToLightbox');
 const modalMedia = document.querySelector('.modal-media');
 const displayModalMedia = () => {
 	modalMedia.style.display = 'block';
 };
+
 const lightbox = () => {
 	let currentIndex;
 
@@ -235,7 +324,6 @@ const lightbox = () => {
 			mediaElement.controls = true;
 			mediaElement.autoplay = true;
 		}
-
 		modalMedia.innerHTML = '';
 
 		// Bouton précédent
@@ -262,21 +350,24 @@ const lightbox = () => {
 		modalMedia.appendChild(nextButton);
 
 		displayModalMedia();
+
 		document.querySelector('.modal-media').setAttribute('aria-hidden', 'false');
 	};
+	allLightboxElements(handleActivation);
+	// const allLightboxElements = () => {
+	// lightboxElements.forEach((element, index) => {
+	// 	// Ajoutez un gestionnaire d'événements pour le clic de la souris
+	// 	element.addEventListener('click', () => handleActivation(index));
 
-	lightboxElements.forEach((element, index) => {
-		// Ajoutez un gestionnaire d'événements pour le clic de la souris
-		element.addEventListener('click', () => handleActivation(index));
-
-		// Ajoutez un gestionnaire d'événements pour la touche "Enter"
-		element.setAttribute('tabindex', '0');
-		element.addEventListener('keydown', event => {
-			if (event.key === 'Enter') {
-				handleActivation(index);
-			}
-		});
-	});
+	// 	// Ajoutez un gestionnaire d'événements pour la touche "Enter"
+	// 	element.setAttribute('tabindex', '0');
+	// 	element.addEventListener('keydown', event => {
+	// 		if (event.key === 'Enter') {
+	// 			handleActivation(index);
+	// 		}
+	// 	});
+	// });
+	// }
 
 	const closeButtonModal = () => {
 		const modal = document.querySelector('.modal-media');
