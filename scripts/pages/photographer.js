@@ -66,7 +66,7 @@ let totalUpdateLikes = 0;
 
 async function createMedia(mediaArray) {
 	const mediaContainer = document.querySelector('.media-container');
-	// mediaContainer.innerHTML = '';
+	mediaContainer.innerHTML = '';
 
 	mediaArray.forEach(media => {
 		let currentLikes = media.likes;
@@ -134,8 +134,6 @@ async function createMedia(mediaArray) {
 		cardInfo.appendChild(p);
 	});
 
-	// const filterOptions = document.getElementById('filter-button');
-
 	// console.log('selectedMediaPhotographerTITLE', selectedMediaPhotographer);
 	// console.log('mediaPhotographers', mediaPhotographers[0].image);
 }
@@ -158,59 +156,9 @@ function totalLikes() {
 	return totalMediaLikes;
 }
 totalLikes();
-// Cette ligne appelle à nouveau la fonction totalLikes et assigne
+// Cette ligne appelle la fonction totalLikes et assigne
 // sa valeur de retour (le nombre total de likes) à la variable totalUpdateLikes.
 totalUpdateLikes = totalLikes();
-
-// Bouton Filter
-// const buttonFilter = () => {
-// 	const filterContainer = document.querySelector('#filter-container');
-// 	const select = document.createElement('select');
-// 	select.setAttribute('aria-label', 'Order by');
-// 	const filterOptions = ['Popularité', 'Date', 'Titre'];
-
-// 	filterContainer.appendChild(select);
-// 	filterOptions.forEach(optionText => {
-// 		const option = document.createElement('option');
-// 		option.value = optionText;
-// 		option.text = optionText;
-// 		option.classList.add('options-style');
-// 		select.appendChild(option);
-
-// 		// console.dir('OPTION', option);
-// 		// console.log('option.text', option.text);
-// 	});
-// 	select.addEventListener('change', () => {
-// 		// console.log('Option de filtre seléctionnée:', select.value);
-// 		if (select.value === 'Popularité') {
-// 			const mediaTabSort = mediaPhotographerFiltered
-// 				.slice()
-// 				.sort((a, b) => b.likes - a.likes);
-
-// 			document.querySelector('.media-container').innerHTML = '';
-// 			createMedia(mediaTabSort);
-// 			// console.log('mediaTAB', likesTab);
-// 			// console.log('mediaTabSort', mediaTabSort);
-// 		} else if (select.value === 'Date') {
-// 			const mediaTabSort = mediaPhotographerFiltered
-// 				.slice()
-// 				.sort((a, b) => new Date(a.date) - new Date(b.date));
-
-// 			document.querySelector('.media-container').innerHTML = '';
-// 			createMedia(mediaTabSort);
-// 		} else if (select.value === 'Titre') {
-// 			const mediaTabSort = mediaPhotographerFiltered
-// 				.slice()
-// 				.sort((a, b) => a.title.localeCompare(b.title));
-// 			console.log('mediaTabSort', mediaTabSort);
-// 			document.querySelector('.media-container').innerHTML = '';
-// 			createMedia(mediaTabSort);
-// 		}
-// 		// console.log('mediaPhotographers.date', mediaPhotographers.date);
-// 		// console.log('mediaPhotographers.title', mediaPhotographers.title);
-// 	});
-// };
-// buttonFilter();
 
 const dropdownButton = document.querySelector('.btn_list');
 const dropdownOptions = document.querySelectorAll(
@@ -226,32 +174,37 @@ chevronIcon.addEventListener('click', () => {
 	chevronIcon.style.display = 'none';
 	dropdownContent.classList.toggle('show-options');
 });
+// Ajoutez un gestionnaire d'événements à l'icône du chevron-down
+chevronIcon.addEventListener('keydown', event => {
+	if (event.key === 'Enter') {
+		// Mettez ici le code que vous souhaitez exécuter lorsque la touche "Enter" est pressée
+		chevronIconUp.style.display = 'block';
+		chevronIcon.style.display = 'none';
+		dropdownContent.classList.toggle('show-options');
+		console.log('Touche Enter pressée sur le chevron-down');
+
+		// Par exemple, déclenchez le clic sur le bouton parent pour simuler le comportement du clic
+	}
+});
 chevronIconUp.addEventListener('click', () => {
 	// Toggle la classe pour afficher ou cacher les options
 	chevronIconUp.style.display = 'none';
 	chevronIcon.style.display = 'block';
 	dropdownContent.classList.toggle('show-options');
 });
+chevronIconUp.addEventListener('keydown', event => {
+	if (event.key === 'Enter') {
+		// Mettez ici le code que vous souhaitez exécuter lorsque la touche "Enter" est pressée
+		chevronIconUp.style.display = 'none';
+		chevronIcon.style.display = 'block';
+		dropdownContent.classList.toggle('show-options');
+		console.log('Touche Enter pressée sur le chevron-down');
 
-// Ajouter un écouteur d'événements pour chaque option
-const allLightboxElements = handleActivation => {
-	const lightboxElements = document.querySelectorAll('.elementToLightbox');
-	lightboxElements.forEach((element, index) => {
-		// Ajoutez un gestionnaire d'événements pour le clic de la souris
-		element.addEventListener('click', () => handleActivation(index));
-
-		// Ajoutez un gestionnaire d'événements pour la touche "Enter"
-		element.setAttribute('tabindex', '0');
-		element.addEventListener('keydown', event => {
-			if (event.key === 'Enter') {
-				handleActivation(index);
-			}
-		});
-	});
-};
-
+		// Par exemple, déclenchez le clic sur le bouton parent pour simuler le comportement du clic
+	}
+});
 dropdownOptions.forEach(option => {
-	option.addEventListener('click', handleActivation => {
+	option.addEventListener('click', () => {
 		// Mettre à jour le texte du bouton avec l'option sélectionnée
 		document.getElementById('current_filter').textContent = option.textContent;
 		// Cacher les options après avoir sélectionné une option
@@ -261,12 +214,10 @@ dropdownOptions.forEach(option => {
 				(a, b) => b.likes - a.likes
 			);
 			document.querySelector('.media-container').innerHTML = '';
-
 			chevronIcon.style.display = 'block';
 			chevronIconUp.style.display = 'none';
-
 			createMedia(mediaTabSort);
-			allLightboxElements(handleActivation);
+
 			// console.log('mediaTAB', likesTab);
 			console.log('mediaTabSortPopularité', mediaTabSort);
 		} else if (option.textContent === 'Date') {
@@ -274,31 +225,63 @@ dropdownOptions.forEach(option => {
 				(a, b) => new Date(a.date) - new Date(b.date)
 			);
 			document.querySelector('.media-container').innerHTML = '';
-
-			console.log('mediaTabSortDate', mediaTabSort);
-
 			chevronIcon.style.display = 'block';
 			chevronIconUp.style.display = 'none';
-
 			createMedia(mediaTabSort);
-			allLightboxElements(handleActivation);
+			console.log('mediaTabSortDate', mediaTabSort);
 		} else if (option.textContent === 'Titre') {
 			const mediaTabSort = mediaPhotographerFiltered.sort((a, b) =>
 				a.title.localeCompare(b.title)
 			);
 			document.querySelector('.media-container').innerHTML = '';
-
-			console.log('mediaTabSortTitre', mediaTabSort);
-
 			chevronIcon.style.display = 'block';
 			chevronIconUp.style.display = 'none';
-
 			createMedia(mediaTabSort);
-			allLightboxElements(handleActivation);
+			console.log('mediaTabSortTitre', mediaTabSort);
 		}
 	});
 
 	console.log('je suis dans les options filtres');
+});
+document.addEventListener('click', () => {
+	lightbox();
+});
+dropdownOptions.forEach(option => {
+	option.addEventListener('keydown', event => {
+		if (event.key === 'Enter') {
+			// Mettez ici le code que vous souhaitez exécuter lorsque la touche "Enter" est pressée
+			document.getElementById('current_filter').textContent =
+				option.textContent;
+			dropdownContent.classList.remove('show-options');
+
+			// Ajoutez votre logique de tri ici en fonction de l'option sélectionnée
+			if (option.textContent === 'Popularité') {
+				const mediaTabSort = mediaPhotographerFiltered.sort(
+					(a, b) => b.likes - a.likes
+				);
+				document.querySelector('.media-container').innerHTML = '';
+				chevronIcon.style.display = 'block';
+				chevronIconUp.style.display = 'none';
+				createMedia(mediaTabSort);
+			} else if (option.textContent === 'Date') {
+				const mediaTabSort = mediaPhotographerFiltered.sort(
+					(a, b) => new Date(a.date) - new Date(b.date)
+				);
+				document.querySelector('.media-container').innerHTML = '';
+				chevronIcon.style.display = 'block';
+				chevronIconUp.style.display = 'none';
+				createMedia(mediaTabSort);
+			} else if (option.textContent === 'Titre') {
+				const mediaTabSort = mediaPhotographerFiltered.sort((a, b) =>
+					a.title.localeCompare(b.title)
+				);
+				document.querySelector('.media-container').innerHTML = '';
+				chevronIcon.style.display = 'block';
+				chevronIconUp.style.display = 'none';
+				createMedia(mediaTabSort);
+			}
+		}
+	});
 });
 
 // Fonction pour la Lightbox
@@ -306,7 +289,6 @@ const modalMedia = document.querySelector('.modal-media');
 const displayModalMedia = () => {
 	modalMedia.style.display = 'block';
 };
-
 const lightbox = () => {
 	let currentIndex;
 
@@ -353,21 +335,20 @@ const lightbox = () => {
 
 		document.querySelector('.modal-media').setAttribute('aria-hidden', 'false');
 	};
-	allLightboxElements(handleActivation);
-	// const allLightboxElements = () => {
-	// lightboxElements.forEach((element, index) => {
-	// 	// Ajoutez un gestionnaire d'événements pour le clic de la souris
-	// 	element.addEventListener('click', () => handleActivation(index));
 
-	// 	// Ajoutez un gestionnaire d'événements pour la touche "Enter"
-	// 	element.setAttribute('tabindex', '0');
-	// 	element.addEventListener('keydown', event => {
-	// 		if (event.key === 'Enter') {
-	// 			handleActivation(index);
-	// 		}
-	// 	});
-	// });
-	// }
+	const lightboxElements = document.querySelectorAll('.elementToLightbox');
+	lightboxElements.forEach((element, index) => {
+		// Ajoutez un gestionnaire d'événements pour le clic de la souris
+		element.addEventListener('click', () => handleActivation(index));
+
+		// Ajoutez un gestionnaire d'événements pour la touche "Enter"
+		element.setAttribute('tabindex', '0');
+		element.addEventListener('keydown', event => {
+			if (event.key === 'Enter') {
+				handleActivation(index);
+			}
+		});
+	});
 
 	const closeButtonModal = () => {
 		const modal = document.querySelector('.modal-media');
@@ -474,3 +455,54 @@ lightbox();
 // };
 
 // lightbox();
+
+// Bouton Filter
+// const buttonFilter = () => {
+// const filterOptions = document.getElementById('filter-button');
+// 	const filterContainer = document.querySelector('#filter-container');
+// 	const select = document.createElement('select');
+// 	select.setAttribute('aria-label', 'Order by');
+// 	const filterOptions = ['Popularité', 'Date', 'Titre'];
+
+// 	filterContainer.appendChild(select);
+// 	filterOptions.forEach(optionText => {
+// 		const option = document.createElement('option');
+// 		option.value = optionText;
+// 		option.text = optionText;
+// 		option.classList.add('options-style');
+// 		select.appendChild(option);
+
+// 		// console.dir('OPTION', option);
+// 		// console.log('option.text', option.text);
+// 	});
+// 	select.addEventListener('change', () => {
+// 		// console.log('Option de filtre seléctionnée:', select.value);
+// 		if (select.value === 'Popularité') {
+// 			const mediaTabSort = mediaPhotographerFiltered
+// 				.slice()
+// 				.sort((a, b) => b.likes - a.likes);
+
+// 			document.querySelector('.media-container').innerHTML = '';
+// 			createMedia(mediaTabSort);
+// 			// console.log('mediaTAB', likesTab);
+// 			// console.log('mediaTabSort', mediaTabSort);
+// 		} else if (select.value === 'Date') {
+// 			const mediaTabSort = mediaPhotographerFiltered
+// 				.slice()
+// 				.sort((a, b) => new Date(a.date) - new Date(b.date));
+
+// 			document.querySelector('.media-container').innerHTML = '';
+// 			createMedia(mediaTabSort);
+// 		} else if (select.value === 'Titre') {
+// 			const mediaTabSort = mediaPhotographerFiltered
+// 				.slice()
+// 				.sort((a, b) => a.title.localeCompare(b.title));
+// 			console.log('mediaTabSort', mediaTabSort);
+// 			document.querySelector('.media-container').innerHTML = '';
+// 			createMedia(mediaTabSort);
+// 		}
+// 		// console.log('mediaPhotographers.date', mediaPhotographers.date);
+// 		// console.log('mediaPhotographers.title', mediaPhotographers.title);
+// 	});
+// };
+// buttonFilter();

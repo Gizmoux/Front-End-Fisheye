@@ -41,7 +41,7 @@
 			</div> -->
 			<div class="filter">
 				<span class="filter_title">Trier par</span>
-				<div class="dropdown">
+				<div class="dropdown" tabindex="0">
 					<button
 						class="btn_list"
 						type="button"
@@ -50,38 +50,18 @@
 						aria-haspopup="listbox"
 					>
 						<span id="current_filter">Popularité</span>
-						<i class="fas fa-chevron-down"></i>
-						<i class="fas fa-chevron-up"></i>
+						<i class="fas fa-chevron-down" tabindex="0"></i>
+						<i class="fas fa-chevron-up" tabindex="0"></i>
 					</button>
-					<ul
-						class="dropdown_content"
-						aria-hidden="true"
-						role="listbox"
-						tabindex="0"
-					>
-						<li
-							class="menu-item"
-							role="option"
-							aria-selected="true"
-							tabindex="0"
-						>
-							<button>Titre</button>
+					<ul class="dropdown_content" aria-hidden="true" role="listbox">
+						<li class="menu-item" role="option" aria-selected="true">
+							<button tabindex="0">Titre</button>
 						</li>
-						<li
-							class="menu-item"
-							role="option"
-							aria-selected="true"
-							tabindex="0"
-						>
-							<button>Popularité</button>
+						<li class="menu-item" role="option" aria-selected="true">
+							<button tabindex="0">Popularité</button>
 						</li>
-						<li
-							class="menu-item"
-							role="option"
-							aria-selected="true"
-							tabindex="0"
-						>
-							<button>Date</button>
+						<li class="menu-item" role="option" aria-selected="true">
+							<button tabindex="0">Date</button>
 						</li>
 					</ul>
 				</div>
