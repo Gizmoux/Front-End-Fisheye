@@ -5,6 +5,7 @@ export async function getPhotographers() {
 	try {
 		const response = await fetch('../../data/photographers.json');
 		// console.log('REPONSE PAGE INDEX.JS', response);
+
 		if (!response.ok) {
 			throw new Error(`Erreur Statut : ${response.status}`);
 		}
@@ -12,7 +13,8 @@ export async function getPhotographers() {
 		const data = await response.json();
 		const photographers = data.photographers;
 		const mediaPhotographers = data.media;
-		// console.log('DATA.MEDIA', mediaPhotographers);
+		// console.log('data PAGE INDEX.JS', data);
+		// console.log('mediaPhotographers PAGE INDEX.JS', mediaPhotographers);
 
 		// Retournez les données récupérées
 		return {
@@ -25,20 +27,13 @@ export async function getPhotographers() {
 			photographers: [],
 		};
 	}
-
-	// et bien retourner le tableau photographers seulement une fois récupéré
-	// return {
-	// 	photographers: [
-	// 		...photographers,
-	// 		...photographers,
-	// 		...photographers,
-	// 		...photographers,
-	// 	],
-	// };
 }
-
-const photographersSection = document.querySelector('.photographer_section');
-export async function displayData(photographers) {
+async function displayData(photographers) {
+	const photographersSection = document.querySelector('.photographer_section');
+	if (photographersSection === null) {
+		// console.error('La section des photographes est introuvable dans le DOM.');
+		return;
+	}
 	photographers.forEach(photographer => {
 		const photographerModel = photographerTemplate(photographer);
 		const userCardDOM = photographerModel.getUserCardDOM();
@@ -53,3 +48,12 @@ async function init() {
 }
 
 init();
+
+// async function displayData(photographers) {
+// 	const photographersSection = document.querySelector('.photographer_section');
+// 	photographers.forEach(photographer => {
+// 		const photographerModel = photographerTemplate(photographer);
+// 		const userCardDOM = photographerModel.getUserCardDOM();
+// 		photographersSection.appendChild(userCardDOM);
+// 	});
+// }

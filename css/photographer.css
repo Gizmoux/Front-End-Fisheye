@@ -20,7 +20,7 @@ textarea {
 	background: none;
 	position: relative;
 	right: -4%;
-	top: -13%;
+	top: -1%;
 }
 
 /* .cardInfo {
@@ -152,6 +152,7 @@ textarea {
 .photographer_header-presentation article .divArticle:focus {
 	display: none;
 }
+
 .divArticle:focus {
 	outline: solid 2px #901c1c;
 	border-radius: 5px;
@@ -223,6 +224,9 @@ textarea {
 	align-self: start;
 	left: 8%;
 	top: -15%;
+}
+.contact_button:focus {
+	outline: solid 4px #8fc982;
 }
 .contact_button:hover {
 	color: black;
@@ -307,7 +311,7 @@ form input {
 	transform: translate(-50%, -50%);
 	margin: auto;
 	object-fit: contain;
-	width: 100%;
+	width: 120%;
 	height: 100%;
 }
 .close-modal-image:focus {
@@ -403,6 +407,7 @@ form input {
 	justify-content: space-between;
 	border-radius: 5px;
 }
+
 /* .fixed-block {
 	position: fixed;
 	bottom: 0;

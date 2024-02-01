@@ -15,7 +15,7 @@ const mediaPhotographerFiltered = mediaPhotographers.filter(
 const selectedPhotographer = photographers.find(
 	photographer => photographer.id === photographerIdURL
 );
-console.log('photographers', photographers);
+// console.log('photographers', photographers);
 const fetchDataPhotographer = async () => {
 	try {
 		// Utilisez getPhotographers pour récupérer les données
@@ -38,8 +38,8 @@ const fetchDataPhotographer = async () => {
 			// mainElement.appendChild(divImageElement);
 			mainElement.classList.add('photographer_header-image');
 
-			console.log('selectedPhotographer :', selectedPhotographer);
-			console.log('mediaPhotographerFiltered', mediaPhotographerFiltered);
+			// console.log('selectedPhotographer :', selectedPhotographer);
+			// console.log('mediaPhotographerFiltered', mediaPhotographerFiltered);
 		} else {
 			console.error("Photographe non trouvé avec l'ID spécifié.");
 		}
@@ -103,6 +103,8 @@ async function createMedia(mediaArray) {
 			if (event.key === 'Enter') {
 				updateLikesInfo();
 				cardInfo.removeEventListener('keydown', handleKeyPress);
+			} else {
+				return;
 			}
 		};
 		cardInfo.addEventListener('keydown', handleKeyPress);
@@ -181,9 +183,10 @@ chevronIcon.addEventListener('keydown', event => {
 		chevronIconUp.style.display = 'block';
 		chevronIcon.style.display = 'none';
 		dropdownContent.classList.toggle('show-options');
-		console.log('Touche Enter pressée sur le chevron-down');
 
 		// Par exemple, déclenchez le clic sur le bouton parent pour simuler le comportement du clic
+	} else {
+		return;
 	}
 });
 chevronIconUp.addEventListener('click', () => {
@@ -198,9 +201,10 @@ chevronIconUp.addEventListener('keydown', event => {
 		chevronIconUp.style.display = 'none';
 		chevronIcon.style.display = 'block';
 		dropdownContent.classList.toggle('show-options');
-		console.log('Touche Enter pressée sur le chevron-down');
 
 		// Par exemple, déclenchez le clic sur le bouton parent pour simuler le comportement du clic
+	} else {
+		return;
 	}
 });
 dropdownOptions.forEach(option => {
@@ -219,7 +223,7 @@ dropdownOptions.forEach(option => {
 			createMedia(mediaTabSort);
 
 			// console.log('mediaTAB', likesTab);
-			console.log('mediaTabSortPopularité', mediaTabSort);
+			// console.log('mediaTabSortPopularité', mediaTabSort);
 		} else if (option.textContent === 'Date') {
 			const mediaTabSort = mediaPhotographerFiltered.sort(
 				(a, b) => new Date(a.date) - new Date(b.date)
@@ -228,7 +232,7 @@ dropdownOptions.forEach(option => {
 			chevronIcon.style.display = 'block';
 			chevronIconUp.style.display = 'none';
 			createMedia(mediaTabSort);
-			console.log('mediaTabSortDate', mediaTabSort);
+			// console.log('mediaTabSortDate', mediaTabSort);
 		} else if (option.textContent === 'Titre') {
 			const mediaTabSort = mediaPhotographerFiltered.sort((a, b) =>
 				a.title.localeCompare(b.title)
@@ -237,11 +241,9 @@ dropdownOptions.forEach(option => {
 			chevronIcon.style.display = 'block';
 			chevronIconUp.style.display = 'none';
 			createMedia(mediaTabSort);
-			console.log('mediaTabSortTitre', mediaTabSort);
+			// console.log('mediaTabSortTitre', mediaTabSort);
 		}
 	});
-
-	console.log('je suis dans les options filtres');
 });
 document.addEventListener('click', () => {
 	lightbox();
@@ -288,6 +290,7 @@ dropdownOptions.forEach(option => {
 const modalMedia = document.querySelector('.modal-media');
 const displayModalMedia = () => {
 	modalMedia.style.display = 'block';
+	modalMedia.style.backgroundColor = 'white';
 };
 const lightbox = () => {
 	let currentIndex;
@@ -295,6 +298,9 @@ const lightbox = () => {
 	const handleActivation = index => {
 		currentIndex = index;
 		const selectedMedia = mediaPhotographerFiltered[index];
+		if (!selectedMedia) {
+			return;
+		}
 		const mediaElement = selectedMedia.image
 			? document.createElement('img')
 			: document.createElement('video');
@@ -346,6 +352,8 @@ const lightbox = () => {
 		element.addEventListener('keydown', event => {
 			if (event.key === 'Enter') {
 				handleActivation(index);
+			} else {
+				return;
 			}
 		});
 	});
