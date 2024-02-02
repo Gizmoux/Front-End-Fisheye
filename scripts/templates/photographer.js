@@ -18,7 +18,7 @@ export function photographerTemplate(data) {
 
 		// SET ATTRIBUTES AND TEXT CONTENT
 		img.setAttribute('src', picture);
-		img.setAttribute('alt', `Photo de ${name}`);
+		img.setAttribute('alt', `Photo de`);
 
 		h2.textContent = name;
 		h3.textContent = `${city}, ${country}`;
@@ -31,9 +31,10 @@ export function photographerTemplate(data) {
 		// ADD ARIA AND ROLE ATTRIBUTES
 		article.setAttribute('role', 'article');
 		img.setAttribute('role', 'img');
-		img.setAttribute('aria-label', `${name}'s portrait`);
+		// img.setAttribute('aria-label', `Portrait de ${name}`);
 		h2.setAttribute('role', 'heading');
 		h2.setAttribute('aria-level', '2');
+		h2.setAttribute('tabindex', '-1');
 		h3.setAttribute('role', 'heading');
 		h3.setAttribute('aria-level', '3');
 
