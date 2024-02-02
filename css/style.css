@@ -24,12 +24,11 @@ h3 {
 }
 .logo {
 	height: 50px;
-	margin-left: 100px;
+	margin-left: 50px;
 }
-.logo:focus {
-	outline: 2px solid #901c1c;
+header a:focus {
+	outline: solid 2px #901c1c;
 	border-radius: 5px;
-	padding: 5px;
 }
 .divPresentation {
 	display: flex;

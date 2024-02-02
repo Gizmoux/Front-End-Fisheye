@@ -143,6 +143,7 @@ textarea {
 	margin: -60% -30% 0% -30%;
 	font-size: 38px;
 }
+
 .photographer_header-presentation article img {
 	position: relative;
 	height: 180px;
@@ -228,6 +229,7 @@ textarea {
 .contact_button:focus {
 	outline: solid 4px #8fc982;
 }
+
 .contact_button:hover {
 	color: black;
 	background-color: #db8876;
@@ -243,7 +245,6 @@ textarea {
 	flex-direction: column;
 	align-items: center;
 	justify-content: space-between;
-
 	padding: 10px 35px 10px 35px;
 }
 
@@ -407,24 +408,8 @@ form input {
 	justify-content: space-between;
 	border-radius: 5px;
 }
-
-/* .fixed-block {
-	position: fixed;
-	bottom: 0;
-	background-color: #db8876;
-	height: 70px;
-	width: 376px;
-	right: 0;
-	margin-right: 36px;
-	border-radius: 5px 5px 0 0;
-	display: flex;
-	justify-content: space-around;
-	align-items: center;
-	font-size: 24px;
-	font-weight: 500;
-} */
-.dropdown_content {
-	display: none;
+.btn_list:focus {
+	outline: solid 4px #8fc982;
 }
 
 .dropdown_content.show-options {
