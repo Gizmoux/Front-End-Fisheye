@@ -16,7 +16,7 @@ export function photographerTemplate(data) {
 		const paragraphe = document.createElement('p');
 		const span = document.createElement('span');
 
-		// SET ATTRIBUTES AND TEXT CONTENT
+		// SET ATTRIBUTS, ARIA AND TEXT CONTENT
 		img.setAttribute('src', picture);
 		img.setAttribute('alt', `Photo de`);
 
@@ -28,7 +28,7 @@ export function photographerTemplate(data) {
 		divArticle.appendChild(img);
 		divArticle.appendChild(h2);
 		divArticle.setAttribute('tabindex', '0');
-		// ADD ARIA AND ROLE ATTRIBUTES
+
 		article.setAttribute('role', 'article');
 		img.setAttribute('role', 'img');
 		// img.setAttribute('aria-label', `Portrait de ${name}`);
@@ -46,9 +46,9 @@ export function photographerTemplate(data) {
 		// divPres.appendChild(h3);
 		// divPres.appendChild(paragraphe);
 		// divPres.appendChild(span);
+		// article.appendChild(h2);
 		article.appendChild(divArticle);
 		article.appendChild(divPres);
-		// article.appendChild(h2);
 		divPres.appendChild(h3);
 		divPres.appendChild(paragraphe);
 		divPres.appendChild(span);
@@ -65,14 +65,7 @@ export function photographerTemplate(data) {
 				window.location.href = `photographer.html?id=${id}`;
 			}
 		});
-		// ADD FOCUS STYLES FOR ACCESSIBILITY
-		// divArticle.addEventListener('focus', () => {
-		// 	article.classList.add('focused');
-		// });
 
-		// divArticle.addEventListener('blur', () => {
-		// 	article.classList.remove('focused');
-		// });
 		return article;
 	}
 

@@ -19,10 +19,6 @@ const selectedPhotographer = photographers.find(
 const fetchDataPhotographer = async () => {
 	try {
 		// Utilisez getPhotographers pour récupérer les données
-		// J'ai déplacé ça au dessus si ça bug...
-		// const selectedPhotographer = photographers.find(
-		// 	photographer => photographer.id === photographerIdURL
-		// );
 		// Trouver le photographe avec l'ID correspondant dans les données récupérées
 
 		if (selectedPhotographer) {
@@ -51,13 +47,9 @@ const fetchDataPhotographer = async () => {
 fetchDataPhotographer();
 //Afficher nom dans le form
 const formcontactname = document.querySelector('#form_contact-name>span');
-
 const nameForm = selectedPhotographer.name;
 formcontactname.textContent = `${nameForm}`;
 
-// Factory pour Media
-
-// const {} = await getPhotographers();
 const heartIcon = document.createElement('i');
 heartIcon.setAttribute('aria-label', 'likes');
 heartIcon.setAttribute('tabindex', '0');
@@ -176,15 +168,12 @@ chevronIcon.addEventListener('click', () => {
 	chevronIcon.style.display = 'none';
 	dropdownContent.classList.toggle('show-options');
 });
-// Ajoutez un gestionnaire d'événements à l'icône du chevron-down
+
 chevronIcon.addEventListener('keydown', event => {
 	if (event.key === 'Enter') {
-		// Mettez ici le code que vous souhaitez exécuter lorsque la touche "Enter" est pressée
 		chevronIconUp.style.display = 'block';
 		chevronIcon.style.display = 'none';
 		dropdownContent.classList.toggle('show-options');
-
-		// Par exemple, déclenchez le clic sur le bouton parent pour simuler le comportement du clic
 	} else {
 		return;
 	}
@@ -197,12 +186,9 @@ chevronIconUp.addEventListener('click', () => {
 });
 chevronIconUp.addEventListener('keydown', event => {
 	if (event.key === 'Enter') {
-		// Mettez ici le code que vous souhaitez exécuter lorsque la touche "Enter" est pressée
 		chevronIconUp.style.display = 'none';
 		chevronIcon.style.display = 'block';
 		dropdownContent.classList.toggle('show-options');
-
-		// Par exemple, déclenchez le clic sur le bouton parent pour simuler le comportement du clic
 	} else {
 		return;
 	}
@@ -251,12 +237,11 @@ document.addEventListener('click', () => {
 dropdownOptions.forEach(option => {
 	option.addEventListener('keydown', event => {
 		if (event.key === 'Enter') {
-			// Mettez ici le code que vous souhaitez exécuter lorsque la touche "Enter" est pressée
 			document.getElementById('current_filter').textContent =
 				option.textContent;
 			dropdownContent.classList.remove('show-options');
 
-			// Ajoutez votre logique de tri ici en fonction de l'option sélectionnée
+			// Logique de tri  en fonction de l'option sélectionnée
 			if (option.textContent === 'Popularité') {
 				const mediaTabSort = mediaPhotographerFiltered.sort(
 					(a, b) => b.likes - a.likes
