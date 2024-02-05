@@ -384,6 +384,7 @@ form input {
 	width: 170px;
 	text-align: left;
 	padding-right: 20px;
+	cursor: pointer;
 }
 .btn_list {
 	display: flex;
@@ -401,4 +402,8 @@ form input {
 }
 .fas.fa-chevron-up {
 	display: none;
+	cursor: pointer;
+}
+.fas.fa-chevron-down {
+	cursor: pointer;
 }
