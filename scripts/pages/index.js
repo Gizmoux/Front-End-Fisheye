@@ -3,11 +3,18 @@ export async function getPhotographers() {
 	// Ceci est un exemple de données pour avoir un affichage de photographes de test dès le démarrage du projet,
 	// mais il sera à remplacer avec une requête sur le fichier JSON en utilisant "fetch".
 	try {
-		const response = await fetch('../../data/photographers.json');
+		// const response = await fetch('../../data/photographers.json');
+		// console.log('URL de la requête fetch :', '../../data/photographers.json');
+
+		// const response = await fetch('../data/photographers.json');
+		const response = await fetch(
+			'https://gizmoux.github.io/Front-End-Fisheye/data/photographers.json'
+		);
 		// console.log('REPONSE PAGE INDEX.JS', response);
 
 		if (!response.ok) {
-			throw new Error(`Erreur Statut : ${response.status}`);
+			// throw new Error(`Erreur Statut : ${response.status}`);
+			console.log('erreur');
 		}
 		// Réponse en JSON
 		const data = await response.json();
