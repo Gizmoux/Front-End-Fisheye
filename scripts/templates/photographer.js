@@ -38,22 +38,13 @@ export function photographerTemplate(data) {
 		h3.setAttribute('role', 'heading');
 		h3.setAttribute('aria-level', '3');
 
-		// article.appendChild(divArticle);
-		// article.appendChild(img);
-		// article.appendChild(divPres);
-		// article.appendChild(h2);
-		// divPres.appendChild(h2);
-		// divPres.appendChild(h3);
-		// divPres.appendChild(paragraphe);
-		// divPres.appendChild(span);
-		// article.appendChild(h2);
 		article.appendChild(divArticle);
 		article.appendChild(divPres);
 		divPres.appendChild(h3);
 		divPres.appendChild(paragraphe);
 		divPres.appendChild(span);
 
-		// FONCTION CLICK SUR LES PHOTOS ET ENVOIE SUR LA PAGE DU PHOTOGRAPHE CHOISI
+		// FONCTION CLIC SUR LES PHOTOS ET ENVOIE SUR LA PAGE DU PHOTOGRAPHE CHOISI
 		img.addEventListener('click', () => {
 			window.location.href = `photographer.html?id=${id}`;
 			// console.log('LINKELEMENT', linkElement);

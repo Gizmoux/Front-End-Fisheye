@@ -19,6 +19,7 @@ let regexName = new RegExp('^[a-zA-Zéë-]{2,}$');
 const firstname = document.getElementById('firstname');
 const lastname = document.getElementById('lastname');
 const email = document.getElementById('email');
+const message = document.getElementById('message');
 
 // DOM ELEMENTS ERRORS
 const firstnameError = document.getElementById('firstnameError');
@@ -83,7 +84,7 @@ form.addEventListener('submit', event => {
 		console.log('Nom:', lastname.value);
 		console.log('Email:', email.value);
 		console.log('Message:', message.value);
-		//Launch modalValidation "Votre réservation a été reçue."
+
 		closeModal();
 	}
 });

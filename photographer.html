@@ -87,7 +87,7 @@
 						src="assets/icons/close.svg"
 						alt="Fermer la fenêtre du formulaire"
 						onclick="closeModal()"
-						aria-label="Close Contact Form"
+						aria-label="Fermer le formulaire de contact"
 						class="close-modal-image"
 						tabindex="0"
 					/>
@@ -95,40 +95,40 @@
 
 				<form id="contact-form">
 					<div class="firstname-container">
-						<label for="firstname">Prénom</label>
+						<label for="firstname" tabindex="0">Prénom</label>
 						<input
 							id="firstname"
 							type="text"
-							aria-labelledby="Prénom"
+							aria-label="Veuillez taper votre Prénom"
 							tabindex="0"
 						/>
 						<span id="firstnameError" aria-live="polite"></span>
 					</div>
 					<div>
-						<label for="lastname">Nom</label>
+						<label for="lastname" tabindex="0">Nom</label>
 						<input
 							id="lastname"
 							type="text"
-							aria-labelledby="Nom"
+							aria-label="Veuillez taper votre Nom"
 							tabindex="0"
 						/>
 						<span id="lastnameError" aria-live="polite"></span>
 					</div>
 					<div>
-						<label for="email">Email</label>
+						<label for="email" tabindex="0">Email</label>
 						<input
 							id="email"
 							type="text"
-							aria-labelledby="Email"
+							aria-label="Veuillez taper votre Email"
 							tabindex="0"
 						/>
 						<span id="emailError" aria-live="polite"></span>
 					</div>
 					<div class="message-container">
-						<label for="message">Votre message</label>
+						<label for="message" tabindex="0">Votre message</label>
 						<textarea
 							id="message"
-							aria-labelledby="Votre message"
+							aria-label="Veuillez taper votre message"
 							tabindex="0"
 						></textarea>
 						<span id="messageError" aria-live="polite"></span>
@@ -136,7 +136,7 @@
 					<button
 						class="contact_button"
 						aria-live="polite"
-						aria-label="Envoyer"
+						aria-label="Envoyer le formulaire de contact"
 						tabindex="0"
 					>
 						Envoyer
