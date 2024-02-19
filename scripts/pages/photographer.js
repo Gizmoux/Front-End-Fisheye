@@ -1,14 +1,18 @@
-// // Mettre le code JavaScript lié à la page photographer.html
 import { getPhotographers } from './index.js';
 import { photographerTemplate } from '../templates/photographer.js';
 
+//crée un nouvel objet urlParams contenant tous les paramètres de l'URL actuelle
 const urlParams = new URLSearchParams(window.location.search);
+// parseInt prend une chaîne de caractères en argument et la convertit en un entier
+// urlParams.get('id') est utilisé pour récupérer la valeur associée à la clé "id" dans les paramètres de l'URL
 const photographerIdURL = parseInt(urlParams.get('id'));
 
 // console.log('photographerIdURL', photographerIdURL);
 // console.log('urlParams', urlParams);
 
+//Déstructure les données photographers, mediaPhotographers
 const { photographers, mediaPhotographers } = await getPhotographers();
+// mediaPhotographerFiltered filtre les médias du photographe en fonction de son ID
 const mediaPhotographerFiltered = mediaPhotographers.filter(
 	media => media.photographerId === photographerIdURL
 );
@@ -160,25 +164,6 @@ async function createMedia(mediaArray) {
 		mediaContainer.appendChild(divCard);
 		divCard.appendChild(cardInfo);
 		cardInfo.appendChild(p);
-
-		// if (media.image) {
-		// 	const imageElement = document.createElement('img');
-		// 	imageElement.classList.add('elementToLightbox');
-
-		// 	imageElement.src = `assets/images/${photographerIdURL}/${media.image}`;
-		// 	imageElement.alt = media.alt;
-		// 	divCard.appendChild(imageElement);
-		// } else if (media.video) {
-		// 	const videoElement = document.createElement('video');
-		// 	videoElement.classList.add('elementToLightbox');
-
-		// 	videoElement.src = `assets/images/${photographerIdURL}/${media.video}`;
-		// 	videoElement.controls = true;
-		// 	divCard.appendChild(videoElement);
-		// }
-		// mediaContainer.appendChild(divCard);
-		// divCard.appendChild(cardInfo);
-		// cardInfo.appendChild(p);
 	});
 
 	// console.log('selectedMediaPhotographerTITLE', selectedMediaPhotographer);
@@ -284,6 +269,7 @@ dropdownOptions.forEach(option => {
 		}
 	});
 });
+// Après changement de filtre, lightbox doit être toujours valide
 document.addEventListener('click', () => {
 	lightbox();
 });
@@ -356,7 +342,7 @@ const lightbox = () => {
 		const prevButton = document.createElement('button');
 		prevButton.innerHTML = '<';
 		prevButton.classList.add('prevButton');
-		prevButton.setAttribute('aria-label', 'Previous Image');
+		prevButton.setAttribute('aria-label', 'Image précédente');
 		prevButton.addEventListener('click', showPreviousImage);
 		modalMedia.appendChild(prevButton);
 		modalMedia.appendChild(mediaElement);
@@ -371,7 +357,7 @@ const lightbox = () => {
 		const nextButton = document.createElement('button');
 		nextButton.innerHTML = '>';
 		nextButton.classList.add('nextButton');
-		nextButton.setAttribute('aria-label', 'Next Image');
+		nextButton.setAttribute('aria-label', 'Image suivante');
 		nextButton.addEventListener('click', showNextImage);
 		modalMedia.appendChild(nextButton);
 
@@ -413,7 +399,7 @@ const lightbox = () => {
 		const newIndex = currentIndex + 1;
 		handleActivation(newIndex);
 	};
-
+	// Navigation clavier
 	const handleKeyUp = event => {
 		switch (event.key) {
 			case 'Escape':
@@ -430,4 +416,23 @@ const lightbox = () => {
 	document.addEventListener('keyup', handleKeyUp);
 };
 lightbox();
-// Définir une classe de création d'éléments média
+
+// Sans factory Pattern
+// if (media.image) {
+// 	const imageElement = document.createElement('img');
+// 	imageElement.classList.add('elementToLightbox');
+
+// 	imageElement.src = `assets/images/${photographerIdURL}/${media.image}`;
+// 	imageElement.alt = media.alt;
+// 	divCard.appendChild(imageElement);
+// } else if (media.video) {
+// 	const videoElement = document.createElement('video');
+// 	videoElement.classList.add('elementToLightbox');
+
+// 	videoElement.src = `assets/images/${photographerIdURL}/${media.video}`;
+// 	videoElement.controls = true;
+// 	divCard.appendChild(videoElement);
+// }
+// mediaContainer.appendChild(divCard);
+// divCard.appendChild(cardInfo);
+// cardInfo.appendChild(p);

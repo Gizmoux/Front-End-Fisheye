@@ -1,7 +1,7 @@
 function displayModal() {
 	const modal = document.getElementById('contact_modal');
 	modal.style.display = 'block';
-	document.querySelector('.close-modal-image').focus();
+	document.querySelector('#firstname').focus();
 	modal.setAttribute('aria-hidden', 'false');
 }
 
@@ -86,6 +86,7 @@ form.addEventListener('submit', event => {
 		console.log('Message:', message.value);
 
 		closeModal();
+		document.querySelector('.btn_list').focus();
 	}
 });
 
