@@ -18,7 +18,7 @@ export function photographerTemplate(data) {
 
 		// SET ATTRIBUTS, ARIA AND TEXT CONTENT
 		img.setAttribute('src', picture);
-		img.setAttribute('alt', `Photo de`);
+		img.setAttribute('alt', `Photo de ${name}`);
 
 		h2.textContent = name;
 		h3.textContent = `${city}, ${country}`;
