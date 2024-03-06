@@ -4,7 +4,6 @@ export function photographerTemplate(data) {
 	const picture = `assets/photographers/${portrait}`;
 
 	function getUserCardDOM() {
-		// CREER LES ELEMENTS DU DOM
 		const article = document.createElement('article');
 		const divArticle = document.createElement('div');
 		divArticle.classList.add('divArticle');
@@ -16,7 +15,6 @@ export function photographerTemplate(data) {
 		const paragraphe = document.createElement('p');
 		const span = document.createElement('span');
 
-		// SET ATTRIBUTS, ARIA AND TEXT CONTENT
 		img.setAttribute('src', picture);
 		img.setAttribute('alt', `Photo de ${name}`);
 
@@ -31,7 +29,6 @@ export function photographerTemplate(data) {
 
 		article.setAttribute('role', 'article');
 		img.setAttribute('role', 'img');
-		// img.setAttribute('aria-label', `Portrait de ${name}`);
 		h2.setAttribute('role', 'heading');
 		h2.setAttribute('aria-level', '2');
 		h2.setAttribute('tabindex', '-1');
@@ -44,21 +41,16 @@ export function photographerTemplate(data) {
 		divPres.appendChild(paragraphe);
 		divPres.appendChild(span);
 
-		// FONCTION CLIC SUR LES PHOTOS ET ENVOIE SUR LA PAGE DU PHOTOGRAPHE CHOISI
 		img.addEventListener('click', () => {
 			window.location.href = `photographer.html?id=${id}`;
-			// console.log('LINKELEMENT', linkElement);
 		});
 		divArticle.addEventListener('keydown', function (event) {
 			if (event.key === 'Enter') {
-				// Code à exécuter lorsqu'on appuie sur la touche "Enter"
-				// Par exemple, vous pouvez appeler votre fonction displayModal() ici
 				window.location.href = `photographer.html?id=${id}`;
 			}
 		});
 
 		return article;
 	}
-
 	return { name, picture, getUserCardDOM };
 }
