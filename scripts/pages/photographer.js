@@ -75,7 +75,6 @@ async function createMedia(mediaArray) {
 		};
 		cardInfo.addEventListener('keydown', handleKeyPress);
 
-		// cardInfo.appendChild(heartIcon);
 		cardInfo.innerHTML = ` ${heartIcon.outerHTML}`;
 		document.body.appendChild(cardInfo);
 		cardInfo.appendChild(likesElement);
@@ -85,14 +84,7 @@ async function createMedia(mediaArray) {
 			constructor(photographerIdURL, media) {
 				this.photographerIdURL = photographerIdURL;
 				this.media = media;
-				this.element = null;
 			}
-
-			// createMediaElement() {
-			// 	throw new Error(
-			// 		'La méthode createMediaElement doit être implémentée par les classes filles.'
-			// 	);
-			// }
 		}
 
 		class ImageMedia extends Media {
@@ -152,6 +144,7 @@ async function createMedia(mediaArray) {
 createMedia(mediaPhotographerFiltered);
 
 const divTotalLikes = document.createElement('div');
+
 function totalLikes() {
 	let totalMediaLikes = 0;
 
@@ -282,6 +275,8 @@ const displayModalMedia = () => {
 	modalMedia.style.display = 'block';
 	modalMedia.style.backgroundColor = 'white';
 };
+
+// Fonction Lightbox + boutons
 const lightbox = () => {
 	let currentIndex;
 
@@ -313,13 +308,14 @@ const lightbox = () => {
 		modalMedia.appendChild(prevButton);
 		modalMedia.appendChild(mediaElement);
 
-		// Bouton suivant
+		// Bouton fermer
 		const closeButton = document.createElement('button');
 		closeButton.innerHTML = 'X';
 		closeButton.classList.add('close-modal');
 		closeButton.addEventListener('click', closeButtonModal);
 		modalMedia.appendChild(closeButton);
 
+		// Bouton suivant
 		const nextButton = document.createElement('button');
 		nextButton.innerHTML = '>';
 		nextButton.classList.add('nextButton');
@@ -374,68 +370,3 @@ const lightbox = () => {
 	document.addEventListener('keyup', handleKeyUp);
 };
 lightbox();
-
-// Sans factory Pattern
-// if (media.image) {
-// 	const imageElement = document.createElement('img');
-// 	imageElement.classList.add('elementToLightbox');
-
-// 	imageElement.src = `assets/images/${photographerIdURL}/${media.image}`;
-// 	imageElement.alt = media.alt;
-// 	divCard.appendChild(imageElement);
-// } else if (media.video) {
-// 	const videoElement = document.createElement('video');
-// 	videoElement.classList.add('elementToLightbox');
-
-// 	videoElement.src = `assets/images/${photographerIdURL}/${media.video}`;
-// 	videoElement.controls = true;
-// 	divCard.appendChild(videoElement);
-// }
-// mediaContainer.appendChild(divCard);
-// divCard.appendChild(cardInfo);
-// cardInfo.appendChild(p);
-
-// class MediaFactory {
-// 	static createMedia(mediaType, photographerIdURL, media) {
-// 		if (mediaType === 'image') {
-// 			return MediaFactory.createImageElement(photographerIdURL, media);
-// 		} else if (mediaType === 'video') {
-// 			return MediaFactory.createVideoElement(photographerIdURL, media);
-// 		} else {
-// 			throw new Error('Type de média différents');
-// 		}
-// 	}
-
-// 	static createImageElement(photographerIdURL, media) {
-// 		const imageElement = document.createElement('img');
-// 		imageElement.classList.add('elementToLightbox');
-// 		imageElement.src = `assets/images/${photographerIdURL}/${media.image}`;
-// 		imageElement.alt = media.alt;
-// 		return imageElement;
-// 	}
-
-// 	static createVideoElement(photographerIdURL, media) {
-// 		const videoElement = document.createElement('video');
-// 		videoElement.classList.add('elementToLightbox');
-// 		videoElement.src = `assets/images/${photographerIdURL}/${media.video}`;
-// 		videoElement.controls = true;
-// 		return videoElement;
-// 	}
-// }
-
-// // Utilisation de la Factory pour créer les éléments média
-// if (media.image) {
-// 	const imageElement = MediaFactory.createMedia(
-// 		'image',
-// 		photographerIdURL,
-// 		media
-// 	);
-// 	divCard.appendChild(imageElement);
-// } else if (media.video) {
-// 	const videoElement = MediaFactory.createMedia(
-// 		'video',
-// 		photographerIdURL,
-// 		media
-// 	);
-// 	divCard.appendChild(videoElement);
-// }

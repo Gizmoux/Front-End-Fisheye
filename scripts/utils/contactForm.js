@@ -1,9 +1,13 @@
+const contactButton = document.querySelector('.contact_button');
+contactButton.addEventListener('click', displayModal);
 function displayModal() {
 	const modal = document.getElementById('contact_modal');
 	modal.style.display = 'block';
 	document.querySelector('#firstname').focus();
 	modal.setAttribute('aria-hidden', 'false');
 }
+const closeContactButton = document.querySelector('.close-modal-image');
+closeContactButton.addEventListener('click', closeModal);
 
 function closeModal() {
 	const modal = document.getElementById('contact_modal');
