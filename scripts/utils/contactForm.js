@@ -41,8 +41,8 @@ const errorMessages = {
 	message: 'Veuillez écrire un message',
 };
 
-const form = document.getElementById('contact-form');
 // Fonctions pour valider le formulaire
+const form = document.getElementById('contact-form');
 const validateFieldName = (field, errorElement, errorMessage) => {
 	if (!regexName.test(field.value)) {
 		errorElement.textContent = errorMessage;
@@ -67,12 +67,9 @@ const validateFieldMessage = (field, errorElement, errorMessage) => {
 		field.style.border = '4px solid green';
 	}
 };
-// Ajout d'un écouteur d'événement sur le formulaire pour écouter le submit
-form.addEventListener('submit', event => {
-	// On empêche le comportement par défaut
-	event.preventDefault();
 
-	// On appelle les fonctions
+form.addEventListener('submit', event => {
+	event.preventDefault();
 	validateFieldName(firstname, firstnameError, errorMessages.firstname);
 	validateFieldName(lastname, lastnameError, errorMessages.lastname);
 	validateFieldEmail(email, emailError, errorMessages.email);

@@ -3,7 +3,9 @@ import { photographerTemplate } from '../templates/photographer.js';
 
 const urlParams = new URLSearchParams(window.location.search);
 const photographerIdURL = parseInt(urlParams.get('id'));
+// Récupération des données
 const { photographers, mediaPhotographers } = await getPhotographers();
+// Filtrer le photographe en fonction de son Id
 const mediaPhotographerFiltered = mediaPhotographers.filter(
 	media => media.photographerId === photographerIdURL
 );
@@ -79,14 +81,15 @@ async function createMedia(mediaArray) {
 		document.body.appendChild(cardInfo);
 		cardInfo.appendChild(likesElement);
 
-		// Définir une classe de création d'éléments média
+		// Créer une classe d'éléments média
 		class Media {
 			constructor(photographerIdURL, media) {
 				this.photographerIdURL = photographerIdURL;
 				this.media = media;
 			}
 		}
-
+		// ImageMedia et VideoMedia héritent de la classe Media et
+		// créent un élément avec la méthode createMediaElement
 		class ImageMedia extends Media {
 			createMediaElement() {
 				const imageElement = document.createElement('img');
@@ -197,11 +200,11 @@ chevronIconUp.addEventListener('keydown', event => {
 		return;
 	}
 });
+// Filtres
 dropdownOptions.forEach(option => {
 	option.addEventListener('click', () => {
-		// Mettre à jour le texte du bouton avec l'option sélectionnée
 		document.getElementById('current_filter').textContent = option.textContent;
-		// Cacher les options après avoir sélectionné une option
+
 		dropdownContent.classList.remove('show-options');
 		if (option.textContent === 'Popularité') {
 			const mediaTabSort = mediaPhotographerFiltered.sort(
@@ -230,6 +233,7 @@ dropdownOptions.forEach(option => {
 		}
 	});
 });
+// Filtres gérés au clavier
 dropdownOptions.forEach(option => {
 	option.addEventListener('keydown', event => {
 		if (event.key === 'Enter') {
